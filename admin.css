@@ -1,0 +1,417 @@
+/* ---- Admin dashboard: black & white, matches the main site ---- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 40px 24px 72px;
+  background: #f3f3f3;
+  color: #111;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.admin-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---- Top bar ---- */
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.admin-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #121212;
+  color: #fff;
+  font-size: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.admin-sub {
+  margin: 2px 0 0;
+  color: #777;
+  font-size: 13px;
+}
+
+.btn-signout {
+  flex: none;
+  border: 1px solid #d6d6d6;
+  border-radius: 999px;
+  padding: 10px 20px;
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.btn-signout:hover {
+  border-color: #111;
+}
+
+.btn-signout:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+#status-msg {
+  margin: 0 0 16px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #fff;
+  color: #555;
+  font-size: 13px;
+}
+
+#status-msg[hidden] {
+  display: none;
+}
+
+/* ---- Purchase verification queue ---- */
+.pending-purchases {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.pending-purchases-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.pending-purchases-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pending-purchases-header p {
+  margin: 4px 0 0;
+  color: #666;
+  font-size: 13px;
+}
+
+.btn-refresh-purchases {
+  flex: none;
+  border: 1px solid #d6d6d6;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+#pending-purchases-status {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #fff;
+  color: #555;
+  font-size: 13px;
+}
+
+#pending-purchases-status[hidden] {
+  display: none;
+}
+
+#pending-purchases-table {
+  min-width: 950px;
+}
+
+.purchase-confirmation {
+  min-width: 230px;
+}
+
+.purchase-credit-input {
+  width: 150px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  padding: 9px 10px;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-size: 13px;
+}
+
+.purchase-confirmation-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: #444;
+  font-size: 12px;
+}
+
+.purchase-confirmation-check input {
+  margin: 2px 0 0;
+  accent-color: #121212;
+}
+
+.btn-confirm-purchase {
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 14px;
+  background: #121212;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.btn-confirm-purchase:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ---- Table card ---- */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid #e4e4e4;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.table-wrap:has(table[hidden]) {
+  display: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+th,
+td {
+  padding: 18px 20px;
+  border-bottom: 1px solid #ececec;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #fafafa;
+  color: #777;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+tbody tr:hover td {
+  background: #fcfcfc;
+}
+
+td:nth-child(2) {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+td:nth-child(5) {
+  color: #666;
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+/* Role pill */
+.role-badge {
+  display: inline-block;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: #eee;
+  color: #444;
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.role-badge--admin {
+  background: #121212;
+  color: #fff;
+}
+
+/* ---- Account editor ---- */
+.account-editor {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 12px;
+  min-width: 440px;
+  align-items: end;
+  padding: 16px;
+  border-radius: 16px;
+  background: #f6f6f6;
+}
+
+.account-field {
+  display: grid;
+  gap: 6px;
+  color: #555;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.account-field--wide {
+  grid-column: 1 / -1;
+}
+
+.account-field-group {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.account-field-group h3 {
+  margin: 0;
+  color: #222;
+  font-size: 13px;
+}
+
+.account-field-group p {
+  margin: 0;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.account-field-group-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.account-field input,
+.account-field select {
+  width: 100%;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.account-field input::placeholder {
+  color: #aaa;
+}
+
+.account-field input:focus,
+.account-field select:focus {
+  outline: 2px solid rgba(17, 17, 17, 0.12);
+  border-color: #111;
+}
+
+.btn-save-balance {
+  grid-column: 1 / -1;
+  justify-self: end;
+  min-width: 110px;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 22px;
+  background: #121212;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.15s ease;
+}
+
+.btn-save-balance:hover {
+  background: #000;
+}
+
+.btn-save-balance:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+@media (max-width: 520px) {
+  .account-field-group-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .pending-purchases-header {
+    align-items: flex-start;
+  }
+}
+
+/* ---- Delete ---- */
+.btn-delete {
+  border: 1px solid #d6d6d6;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-delete:hover {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  body {
+    padding: 20px 14px 48px;
+  }
+
+  .admin-sub {
+    display: none;
+  }
+
+  table {
+    min-width: 900px;
+  }
+}

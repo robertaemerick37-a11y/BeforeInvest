@@ -1,0 +1,724 @@
+/* ---- Auth pages (Login / Register) — extends style.css, same brand system ---- */
+
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+}
+
+.auth-side {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 130px 40px 40px;
+  background: #f2f2f2;
+  border-right: 1px solid #e6e6e6;
+  color: #17123a;
+}
+
+.auth-side > * {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-side-top {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 1;
+}
+
+.auth-side-top .brand small {
+  color: #777;
+}
+
+/* Monochrome confetti dots scattered across the panel */
+.auth-dots {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.auth-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: #111;
+}
+
+.auth-dot.d1 {
+  top: 9%;
+  left: 14%;
+  width: 10px;
+  height: 10px;
+  opacity: 0.12;
+}
+
+.auth-dot.d2 {
+  top: 16%;
+  right: 12%;
+  width: 16px;
+  height: 16px;
+  opacity: 0.06;
+}
+
+.auth-dot.d3 {
+  bottom: 24%;
+  left: 8%;
+  width: 8px;
+  height: 8px;
+  opacity: 0.2;
+}
+
+.auth-dot.d4 {
+  bottom: 12%;
+  right: 9%;
+  width: 20px;
+  height: 20px;
+  opacity: 0.05;
+}
+
+.auth-dot.d5 {
+  top: 50%;
+  left: 4%;
+  width: 6px;
+  height: 6px;
+  opacity: 0.25;
+}
+
+.auth-dot.d6 {
+  top: 62%;
+  right: 5%;
+  width: 12px;
+  height: 12px;
+  opacity: 0.1;
+}
+
+/* The illustration sits directly on the page (no card behind it) */
+.auth-side-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 0 10px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.auth-side-card svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.auth-side-points {
+  display: inline-grid;
+  gap: 12px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.auth-side-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #333;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.auth-side-points svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  color: #111;
+}
+
+.auth-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  background: #fff;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-mobile-brand {
+  display: none;
+  margin-bottom: 32px;
+}
+
+.auth-eyebrow {
+  margin: 0 0 10px;
+  color: #666;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.auth-card h1 {
+  margin: 0 0 10px;
+  font-size: clamp(28px, 3vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.auth-card > .auth-lead {
+  margin: 0 0 32px;
+  color: #555;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+/* Step progress (register) */
+.auth-steps {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.auth-step {
+  position: relative;
+  padding: 0 0 16px;
+  border: 0;
+  background: transparent;
+  color: #9a9a9a;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.auth-step:hover {
+  color: #444;
+}
+
+.auth-step::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: transparent;
+  transition: background 0.15s ease;
+}
+
+.auth-step.is-active {
+  color: #111;
+}
+
+.auth-step.is-active::after {
+  background: #000;
+}
+
+.auth-step.is-done {
+  color: #444;
+}
+
+.auth-fieldset {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-fieldset.is-active {
+  display: flex;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.auth-field label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: -0.01em;
+}
+
+.auth-field-hint {
+  margin: 0;
+  color: #888;
+  font-size: 12px;
+}
+
+.auth-field input,
+.auth-field select {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid #d6d6d6;
+  border-radius: 12px;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  appearance: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 1px 2px rgba(17, 17, 17, 0.03);
+}
+
+.auth-field select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23555' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 8px;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.auth-field input::placeholder {
+  color: #a9a9a9;
+}
+
+.auth-field input:hover,
+.auth-field select:hover {
+  border-color: #b9b9b9;
+}
+
+.auth-field input:focus,
+.auth-field select:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.06);
+}
+
+.auth-field.has-error input,
+.auth-field.has-error select {
+  border-color: #c0392b;
+}
+
+.auth-field-error {
+  display: none;
+  margin: 0;
+  color: #c0392b;
+  font-size: 12px;
+}
+
+.auth-field.has-error .auth-field-error {
+  display: block;
+}
+
+.auth-password-row {
+  position: relative;
+}
+
+.auth-password-toggle {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 36px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #666;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.auth-password-toggle:hover {
+  background: #f0f0f0;
+  color: #111;
+}
+
+.auth-password-toggle svg {
+  width: 17px;
+  height: 17px;
+}
+
+.auth-row-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.auth-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: #444;
+  line-height: 1.5;
+}
+
+.auth-checkbox input {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  accent-color: #000;
+  flex: none;
+  cursor: pointer;
+}
+
+.auth-checkbox a {
+  color: #111;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.auth-row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.auth-link-muted {
+  color: #666;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.auth-link-muted:hover {
+  color: #000;
+}
+
+.auth-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.auth-submit {
+  flex: 1;
+  padding: 14px 22px;
+  border: 1px solid #000;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.auth-submit:hover {
+  background: #222;
+}
+
+.auth-submit-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.auth-submit:active {
+  transform: scale(0.99);
+}
+
+.auth-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-verification-title {
+  margin: 0;
+  font-size: 25px;
+}
+
+.auth-verification-copy {
+  margin: 9px 0 22px;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.auth-verification-status {
+  min-height: 18px;
+  margin: 10px 0;
+  color: #9a3028;
+  font-size: 12.5px;
+}
+
+.auth-verification-status.is-success {
+  color: #286343;
+}
+
+.auth-back {
+  flex: none;
+  padding: 14px 20px;
+  border: 1px solid #d6d6d6;
+  border-radius: 999px;
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.auth-back:hover {
+  border-color: #000;
+  color: #000;
+}
+
+.auth-footer-note {
+  margin-top: 26px;
+  color: #555;
+  font-size: 13.5px;
+}
+
+.auth-footer-note a {
+  color: #111;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.auth-fineprint {
+  margin-top: 40px;
+  color: #999;
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+
+.auth-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.auth-loading.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.auth-loading-mark {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: #000;
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  animation: authLoadingPulse 1.1s ease-in-out infinite;
+}
+
+@keyframes authLoadingPulse {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+.auth-form.is-submitted {
+  display: none;
+}
+
+/* ---- Phone field: country-code dropdown (flags + dial codes) ---- */
+/* Small font so flag emoji also show on Windows, which has none built in.
+   It only ever applies to flag characters. */
+@font-face {
+  font-family: "Twemoji Country Flags";
+  unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067,
+    U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F;
+  src: url("https://cdn.jsdelivr.net/npm/country-flag-emoji-polyfill@0.1/dist/TwemojiCountryFlags.woff2")
+    format("woff2");
+  font-display: swap;
+}
+
+.auth-phone {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid #d6d6d6;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(17, 17, 17, 0.03);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-phone:hover {
+  border-color: #b9b9b9;
+}
+
+.auth-phone:focus-within,
+.auth-phone.is-open {
+  border-color: #000;
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.06);
+}
+
+.auth-field.has-error .auth-phone {
+  border-color: #c0392b;
+}
+
+.auth-phone-country {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px 0 14px;
+  border: 0;
+  border-right: 1px solid #e6e6e6;
+  border-radius: 11px 0 0 11px;
+  background: transparent;
+  color: #111;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.auth-phone-country:hover {
+  background: #f6f6f6;
+}
+
+.auth-phone-country:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: -2px;
+}
+
+.auth-phone-flag,
+.auth-phone-option-flag {
+  font-family: "Twemoji Country Flags", "Apple Color Emoji", "Segoe UI Emoji",
+    "Noto Color Emoji", sans-serif;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.auth-phone-caret {
+  width: 10px;
+  height: 7px;
+  fill: none;
+  stroke: #555;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.15s ease;
+}
+
+.auth-phone.is-open .auth-phone-caret {
+  transform: rotate(180deg);
+}
+
+.auth-field .auth-phone-input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 16px 13px 14px;
+  border: 0;
+  border-radius: 0 11px 11px 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.auth-field .auth-phone-input:hover,
+.auth-field .auth-phone-input:focus {
+  border: 0;
+  box-shadow: none;
+}
+
+.auth-phone-list {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  max-height: 264px;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #d6d6d6;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+}
+
+.auth-phone-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 10px;
+  border-radius: 9px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.auth-phone-option.is-active {
+  background: #f0f0f0;
+}
+
+.auth-phone-option[aria-selected="true"] .auth-phone-option-name {
+  font-weight: 800;
+}
+
+.auth-phone-option-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: #222;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.auth-phone-option-dial {
+  flex: none;
+  color: #666;
+  font-variant-numeric: tabular-nums;
+}
+
+.auth-phone-empty {
+  padding: 14px 10px;
+  color: #777;
+  font-size: 13px;
+}
+
+@media (max-width: 980px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+  }
+  .auth-side {
+    display: none;
+  }
+  .auth-mobile-brand {
+    display: block;
+  }
+  .auth-main {
+    padding: 48px 24px 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-row-split {
+    grid-template-columns: 1fr;
+  }
+}

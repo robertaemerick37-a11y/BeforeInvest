@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Log In | DuaneCapital</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="auth.css" />
+      <link rel="stylesheet" href="demo-badge.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="site-card">
+        <div class="auth-shell">
+          <!-- Brand / trust panel -->
+          <aside class="auth-side">
+            <div class="auth-dots" aria-hidden="true">
+              <span class="auth-dot d1"></span>
+              <span class="auth-dot d2"></span>
+              <span class="auth-dot d3"></span>
+              <span class="auth-dot d4"></span>
+              <span class="auth-dot d5"></span>
+              <span class="auth-dot d6"></span>
+            </div>
+
+            <div class="auth-side-top">
+              <a href="index.html" class="brand">
+                <span class="brand-mark">◆</span>
+                <span>
+                  <strong>Duane<span>Capital</span></strong>
+                  <small>MAKE INFORMED, SAFER DECISIONS</small>
+                </span>
+              </a>
+            </div>
+
+            <div class="auth-side-card" aria-hidden="true">
+              <!-- 3D (isometric) business buildings -->
+              <svg viewBox="0 0 400 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <filter id="kbiBlur" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="5" />
+                  </filter>
+
+                  <!-- lit window grids -->
+                  <pattern id="kbiWinA" width="20" height="19" patternUnits="userSpaceOnUse">
+                    <rect x="5" y="5" width="10" height="9" rx="1" fill="#ffffff" fill-opacity="0.5" />
+                  </pattern>
+                  <pattern id="kbiWinB" width="20" height="19" patternUnits="userSpaceOnUse">
+                    <rect x="5" y="5" width="10" height="9" rx="1" fill="#ffffff" fill-opacity="0.28" />
+                  </pattern>
+
+                  <!-- small side tower (reused twice) -->
+                  <g id="kbiTowerSmall">
+                    <polygon points="70,320 110,340 110,230 70,210" fill="#262626" />
+                    <polygon points="110,340 150,320 150,210 110,230" fill="#0d0d0d" />
+                    <polygon points="70,210 110,230 150,210 110,190" fill="#454545" />
+                    <g transform="translate(70 210) skewY(26.565)">
+                      <rect width="40" height="95" fill="url(#kbiWinA)" />
+                    </g>
+                    <g transform="translate(110 230) skewY(-26.565)">
+                      <rect width="40" height="95" fill="url(#kbiWinB)" />
+                    </g>
+                  </g>
+                </defs>
+
+                <!-- ground shadows (light from upper left) -->
+                <ellipse cx="200" cy="336" rx="170" ry="14" fill="#000000" fill-opacity="0.1" filter="url(#kbiBlur)" />
+                <g fill="#000000" fill-opacity="0.22" filter="url(#kbiBlur)">
+                  <polygon points="140,300 200,330 290,356 350,326 290,296 200,270" />
+                  <polygon points="40,324 80,344 125,357 165,337 125,317 80,304" />
+                  <polygon points="270,306 310,326 345,336 385,316 345,296 310,286" />
+                </g>
+
+                <!-- back-right tower -->
+                <use href="#kbiTowerSmall" transform="translate(200 -14)" />
+
+                <!-- front-left tower -->
+                <use href="#kbiTowerSmall" transform="translate(-30 4)" />
+
+                <!-- main skyscraper -->
+                <polygon points="140,300 200,330 200,140 140,110" fill="#262626" />
+                <polygon points="200,330 260,300 260,110 200,140" fill="#0d0d0d" />
+                <polygon points="140,110 200,140 260,110 200,80" fill="#454545" />
+
+                <g transform="translate(140 110) skewY(26.565)">
+                  <rect width="60" height="190" fill="url(#kbiWinA)" />
+                </g>
+                <g transform="translate(200 140) skewY(-26.565)">
+                  <rect width="60" height="190" fill="url(#kbiWinB)" />
+                </g>
+
+                <!-- entrance -->
+                <polygon points="184,321 194,326 194,306 184,301" fill="#555555" />
+
+                <!-- floating status badges -->
+                <circle cx="100" cy="100" r="19" fill="#111111" />
+                <path d="M92 100l5.5 5.5L108 94" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+
+                <circle cx="310" cy="62" r="21" fill="#111111" />
+                <path d="M304 60v-5a6 6 0 0 1 12 0v5" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" />
+                <rect x="302" y="60" width="16" height="12" rx="3" fill="#ffffff" />
+              </svg>
+            </div>
+          </aside>
+
+          <!-- Form -->
+          <div class="auth-main">
+            <div class="auth-card">
+              <a href="index.html" class="brand auth-mobile-brand">
+                <span class="brand-mark">◆</span>
+                <span>
+                  <strong>Duane<span>Capital</span></strong>
+                </span>
+              </a>
+
+              <p class="auth-eyebrow">Account</p>
+              <h1>Log in</h1>
+              <p class="auth-lead">Enter your details to access your DuaneCapital account.</p>
+
+              <form data-auth-form="login" novalidate>
+                <div class="auth-fieldset is-active">
+                  <div class="auth-field">
+                    <label for="loginEmail">Email address</label>
+                    <input id="loginEmail" name="email" type="email" placeholder="you@example.com" required />
+                    <p class="auth-field-error">This field is required.</p>
+                  </div>
+
+                  <div class="auth-field">
+                    <label for="loginPassword">Password</label>
+                    <div class="auth-password-row">
+                      <input
+                        id="loginPassword"
+                        name="password"
+                        type="password"
+                        placeholder="Enter your password"
+                        minlength="8"
+                        required
+                        data-role="password"
+                      />
+                      <button type="button" class="auth-password-toggle" data-for="loginPassword" aria-label="Show password">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" /><circle cx="12" cy="12" r="3" /></svg>
+                      </button>
+                    </div>
+                    <p class="auth-field-error">This field is required.</p>
+                  </div>
+
+                  <div class="auth-row-between">
+                    <label class="auth-checkbox">
+                      <input type="checkbox" name="remember" />
+                      Remember me
+                    </label>
+                    <a href="#forgot-password" class="auth-link-muted" data-forgot-password>Forgot password?</a>
+                  </div>
+
+                  <div class="auth-actions">
+                    <button type="submit" class="auth-submit">Log in</button>
+                  </div>
+                </div>
+              </form>
+
+              <form id="forgot-password-form" hidden>
+                <p class="auth-eyebrow">Account recovery</p>
+                <h2 class="auth-verification-title">Reset your password</h2>
+                <p class="auth-verification-copy">Enter your account email. If it matches an account, we’ll send a one-time reset link.</p>
+                <div class="auth-field">
+                  <label for="resetRequestEmail">Email address</label>
+                  <input id="resetRequestEmail" name="email" type="email" autocomplete="email" required />
+                </div>
+                <p id="reset-request-status" class="auth-verification-status" role="status" aria-live="polite"></p>
+                <div class="auth-actions">
+                  <button type="submit" class="auth-submit">Send reset link</button>
+                  <button type="button" class="auth-back" data-back-to-login>Back to login</button>
+                </div>
+              </form>
+
+              <form id="password-reset-form" hidden>
+                <p class="auth-eyebrow">Secure your account</p>
+                <h2 class="auth-verification-title">Choose a new password</h2>
+                <p class="auth-verification-copy">Use at least 12 characters. Reset links expire after 30 minutes.</p>
+                <div class="auth-field">
+                  <label for="resetNewPassword">New password</label>
+                  <input id="resetNewPassword" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="72" required />
+                </div>
+                <div class="auth-field">
+                  <label for="resetConfirmPassword">Confirm new password</label>
+                  <input id="resetConfirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="12" maxlength="72" required />
+                </div>
+                <p id="password-reset-status" class="auth-verification-status" role="status" aria-live="polite"></p>
+                <div class="auth-actions">
+                  <button type="submit" class="auth-submit">Update password</button>
+                  <button type="button" class="auth-back" data-back-to-login>Back to login</button>
+                </div>
+              </form>
+
+              <div id="password-reset-success" hidden>
+                <p class="auth-eyebrow">Password updated</p>
+                <h2 class="auth-verification-title">You’re all set</h2>
+                <p class="auth-verification-copy">Your password has been changed. Sign in with your new password.</p>
+                <a class="auth-submit auth-submit-link" href="login.html">Return to login</a>
+              </div>
+
+              <form id="admin-verification-form" hidden>
+                <p class="auth-eyebrow">Admin verification</p>
+                <h2 class="auth-verification-title">Check your email</h2>
+                <p class="auth-verification-copy">Enter the six-digit sign-in code sent to your admin email address.</p>
+                <div class="auth-field">
+                  <label for="adminVerificationCode">Verification code</label>
+                  <input id="adminVerificationCode" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" minlength="6" maxlength="6" required />
+                </div>
+                <p id="admin-verification-status" class="auth-verification-status" role="status" aria-live="polite"></p>
+                <div class="auth-actions">
+                  <button type="submit" class="auth-submit">Verify and sign in</button>
+                  <button type="button" class="auth-back" data-cancel-admin-verification>Back</button>
+                </div>
+              </form>
+
+              <p class="auth-footer-note">
+                New to DuaneCapital? <a href="register.html">Create an account</a>
+              </p>
+
+              <p class="auth-fineprint">
+                By logging in, you agree to our Terms of Service and Privacy
+                Policy. DuaneCapital never asks for your password by
+                email, phone, or chat.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="auth-loading" data-loading aria-hidden="true">
+      <div class="auth-loading-mark">◆</div>
+    </div>
+
+    <script src="auth.js" defer></script>
+  </body>
+</html>

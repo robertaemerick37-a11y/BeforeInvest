@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - User Management</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <main class="admin-shell">
+    <header class="admin-topbar">
+      <div class="admin-brand">
+        <span class="admin-mark" aria-hidden="true">◆</span>
+        <div>
+          <h1>Admin Dashboard</h1>
+          <p class="admin-sub">Manage user accounts, balances, and each user's Profile Save earnings and tasks.</p>
+        </div>
+      </div>
+      <button type="button" id="admin-signout" class="btn-signout">Sign out</button>
+    </header>
+
+    <p id="status-msg">Loading users...</p>
+
+    <section class="pending-purchases" aria-labelledby="pending-purchases-title">
+      <header class="pending-purchases-header">
+        <div>
+          <h2 id="pending-purchases-title">Pending purchases</h2>
+          <p>Verify the transfer, enter the USD amount to credit, then check the box and confirm. USD purchases default to their purchase total.</p>
+        </div>
+        <button type="button" id="refresh-pending-purchases" class="btn-refresh-purchases">Refresh</button>
+      </header>
+      <p id="pending-purchases-status" role="status" aria-live="polite">Loading pending purchases...</p>
+      <div class="table-wrap">
+        <table id="pending-purchases-table" hidden>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Purchase</th>
+              <th>Purchase amount</th>
+              <th>Credit to balance (USD)</th>
+              <th>Submitted</th>
+              <th>Confirmation</th>
+            </tr>
+          </thead>
+          <tbody id="pending-purchases-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="table-wrap">
+      <table id="users-table" hidden>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Account</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="users-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="admin.js" defer></script>
+</body>
+</html>

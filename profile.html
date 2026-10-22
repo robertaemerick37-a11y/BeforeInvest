@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Profile | DuaneCapital</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="profile.css" />
+      <link rel="stylesheet" href="demo-badge.css" />
+  </head>
+  <body>
+    
+    <main class="page-shell">
+      <section class="site-card">
+        <header class="profile-topbar">
+          <a href="index.html" class="brand" aria-label="DuaneCapital home">
+            <span class="brand-mark">◆</span>
+          </a>
+          <button type="button" class="side-nav-toggle" data-nav-toggle aria-label="Expand or collapse menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg>
+          </button>
+          <button type="button" class="profile-avatar-btn" data-view-toggle="settings" aria-label="Open account settings">
+            <span data-initials>—</span>
+          </button>
+        </header>
+
+        <div class="app-body">
+          <!-- Backdrop shown behind the sidebar when it opens as a mobile
+               drawer; tapping it closes the drawer -->
+          <div class="side-nav-backdrop" data-nav-backdrop></div>
+
+          <!-- Sidebar -->
+          <nav class="side-nav" aria-label="Dashboard navigation" data-side-nav>
+            <div class="side-nav-group">
+              <a href="#" class="side-nav-icon is-active" aria-current="page" title="Overview" data-view-toggle="overview">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+                <span class="side-nav-label">Overview</span>
+              </a>
+              <a href="#" class="side-nav-icon" title="Crypto &amp; Markets" data-view-toggle="crypto">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5h3.4a2.1 2.1 0 0 1 0 4.2H9.5m0-4.2v8m0-8h-1.2m1.2 4.2h3.9a2.1 2.1 0 0 1 0 4.2H9.5m0-4.2v3.8m0 0H8.3"/></svg>
+                <span class="side-nav-label">Crypto &amp; Markets</span>
+              </a>
+              <a href="#" class="side-nav-icon" title="Metals" data-view-toggle="metals">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17V9l8-4 8 4v8"/><path d="M4 17l8 4 8-4"/><path d="M4 9l8 4 8-4"/><path d="M12 13v8"/></svg>
+                <span class="side-nav-label">Metals</span>
+              </a>
+              <a href="#" class="side-nav-icon" title="Stocks" data-view-toggle="stocks">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20V4"/><path d="M3 20h18"/><rect x="6" y="13" width="3" height="7"/><rect x="11.5" y="8" width="3" height="12"/><rect x="17" y="10.5" width="3" height="9.5"/></svg>
+                <span class="side-nav-label">Stocks</span>
+              </a>
+              <a href="#" class="side-nav-icon" title="History" data-view-toggle="history">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h5M8 16h4"/><circle cx="17.5" cy="16.5" r="3.5" fill="white"/><path d="M17.5 14.8v1.9l1.2.8"/></svg>
+                <span class="side-nav-label">History</span>
+              </a>
+              <a href="learn.html" class="side-nav-icon" title="Learn" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5Z"/><path d="M20 18H6.5A2.5 2.5 0 0 0 4 20.5"/></svg>
+                <span class="side-nav-label">Learn</span>
+              </a>
+            </div>
+
+            <div class="side-nav-group side-nav-group--bottom">
+              <hr class="side-nav-divider" />
+              <a href="#" class="side-nav-icon" title="Account settings" data-view-toggle="settings">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.97 7.97 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a8 8 0 0 0-1.7-1L14.9 3h-4l-.4 2.9a8 8 0 0 0-1.7 1l-2.5-1-2 3.5L6.4 11a7.97 7.97 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a8 8 0 0 0 1.7 1l.4 2.9h4l.4-2.9a8 8 0 0 0 1.7-1l2.5 1 2-3.5-2.1-1.6Z"/></svg>
+                <span class="side-nav-label">Settings</span>
+              </a>
+              <a href="#" class="side-nav-icon" title="Log out" data-logout>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5" /><path d="M21 12H9" /></svg>
+                <span class="side-nav-label">Log out</span>
+              </a>
+            </div>
+          </nav>
+
+          <div class="profile-page">
+
+          <div class="view-section" data-view="overview">
+
+          <!-- ---- Overview: balance card + quick links ---- -->
+          <div class="ov-top-row">
+            <div class="ov-balance-card">
+              <div class="ov-card-top">
+                <span class="ov-card-chip">
+                  <svg viewBox="0 0 24 18" fill="none"><rect x="0.5" y="0.5" width="23" height="17" rx="3.5" fill="url(#chipGrad)" stroke="rgba(0,0,0,0.25)"/><path d="M0.5 6h23M0.5 12h23M8 0.5v17M16 0.5v17" stroke="rgba(0,0,0,0.25)" stroke-width="0.6"/><defs><linearGradient id="chipGrad" x1="0" y1="0" x2="24" y2="18"><stop offset="0" stop-color="#e8cd8a"/><stop offset="1" stop-color="#b89452"/></linearGradient></defs></svg>
+                </span>
+                <span class="ov-card-mark">◆</span>
+              </div>
+
+              <button type="button" class="ov-eye-toggle" data-balance-toggle aria-label="Show or hide balance">
+                <svg data-eye-open viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                <svg data-eye-closed viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3l18 18"/><path d="M10.6 5.2C11 5.1 11.5 5 12 5c7 0 10.5 7 10.5 7a13.7 13.7 0 0 1-3.2 4.1M6.6 6.6C3.4 8.6 1.5 12 1.5 12s3.5 7 10.5 7c1.4 0 2.7-.3 3.8-.7"/><path d="M9.5 9.6a3.2 3.2 0 0 0 4.5 4.5"/></svg>
+              </button>
+
+              <div class="ov-balance-block">
+                <p class="ov-balance-label">Wallet Balance</p>
+                <div class="ov-balance-amount-row">
+                  <h2 class="ov-balance-amount" data-balance>$0.00</h2>
+                  <span class="ov-balance-currency">USD</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ov-quicklinks">
+              <a class="ov-quicklink" href="https://t.me/+12512098369" target="_blank" rel="noopener noreferrer">
+                <span class="ov-quicklink-icon ov-quicklink-icon--fund">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="6" width="19" height="13" rx="2"/><path d="M2.5 10h19"/><path d="M12 17v-3"/><path d="M9.5 15.5h5"/></svg>
+                </span>
+                Fund
+              </a>
+              <a class="ov-quicklink" href="#top-movers" data-scroll-target>
+                <span class="ov-quicklink-icon ov-quicklink-icon--invest">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17 9 11l4 4 8-8"/><path d="M15 7h6v6"/></svg>
+                </span>
+                Invest
+              </a>
+            </div>
+          </div>
+
+          <div class="ov-summary-wrap" aria-label="Overview performance summary">
+            <article class="ov-summary-card">
+              <span class="ov-summary-card-label">Earned today</span>
+              <strong class="ov-summary-card-value" data-earned-today>$0.00</strong>
+              <small>Updated today</small>
+            </article>
+            <article class="ov-summary-card">
+              <span class="ov-summary-card-label">Tasks completed</span>
+              <strong class="ov-summary-card-value" data-tasks-completed>0 / 60</strong>
+              <small>Across active tasks</small>
+            </article>
+          </div>
+
+          <!-- ---- Recommended for you ---- -->
+          <section class="ov-section">
+            <div class="ov-section-head">
+              <h3>Recommended for you</h3>
+              <p>New markets to diversify your portfolio into</p>
+            </div>
+            <div class="ov-recommend-grid">
+              <a class="ov-recommend-card" href="#" data-view-toggle="crypto">
+                <span class="ov-recommend-logo ov-recommend-logo--crypto">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9.5"/><path d="M9.3 8h3.6a2.2 2.2 0 0 1 0 4.4H9.3m0-4.4v8.4m0-8.4H7.8m1.5 4.2h4.1a2.2 2.2 0 0 1 0 4.2H9.3m0-4.2v4.2m0 0H7.8"/></svg>
+                </span>
+                <span class="ov-recommend-body">
+                  <strong>Crypto</strong>
+                  <span>Buy, sell and track Bitcoin, Ethereum &amp; more</span>
+                </span>
+                <span class="ov-recommend-arrow">›</span>
+              </a>
+              <a class="ov-recommend-card" href="#" data-view-toggle="metals">
+                <span class="ov-recommend-logo ov-recommend-logo--metals">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17V9l8-4 8 4v8"/><path d="M4 17l8 4 8-4"/><path d="M4 9l8 4 8-4"/><path d="M12 13v8"/></svg>
+                </span>
+                <span class="ov-recommend-body">
+                  <strong>Metals</strong>
+                  <span>Own physical-backed gold, silver &amp; more</span>
+                </span>
+                <span class="ov-recommend-arrow">›</span>
+              </a>
+              <a class="ov-recommend-card" href="#" data-view-toggle="stocks">
+                <span class="ov-recommend-logo ov-recommend-logo--stocks">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20V4"/><path d="M3 20h18"/><rect x="6" y="13" width="3" height="7"/><rect x="11.5" y="8" width="3" height="12"/><rect x="17" y="10.5" width="3" height="9.5"/></svg>
+                </span>
+                <span class="ov-recommend-body">
+                  <strong>Stocks</strong>
+                  <span>Trade shares on US &amp; global exchanges</span>
+                </span>
+                <span class="ov-recommend-arrow">›</span>
+              </a>
+            </div>
+          </section>
+
+          <!-- ---- Top Movers ---- -->
+          <section class="ov-section" id="top-movers">
+            <div class="ov-section-head">
+              <h3>Top Movers</h3>
+              <p>The biggest moves in stocks and crypto today</p>
+            </div>
+
+            <p class="ov-movers-label">Top Stocks · US Markets</p>
+            <div class="ov-movers-grid">
+              <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer" data-symbol="NVDA">
+                <span class="ov-mover-badge" style="background:#76b900;">NV</span>
+                <span class="ov-mover-info"><strong>NVDA</strong><small>NVIDIA Corporation</small></span>
+                <span class="ov-mover-price"><strong data-price>$187.40</strong><small class="is-up" data-change>+2.10%</small></span>
+                <span class="ov-mover-go" aria-hidden="true">↗</span>
+              </a>
+              <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer" data-symbol="AAPL">
+                <span class="ov-mover-badge" style="background:#555555;">AA</span>
+                <span class="ov-mover-info"><strong>AAPL</strong><small>Apple Inc.</small></span>
+                <span class="ov-mover-price"><strong data-price>$256.80</strong><small class="is-up" data-change>+0.65%</small></span>
+                <span class="ov-mover-go" aria-hidden="true">↗</span>
+              </a>
+              <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer" data-symbol="MSFT">
+                <span class="ov-mover-badge" style="background:#00a4ef;">MS</span>
+                <span class="ov-mover-info"><strong>MSFT</strong><small>Microsoft Corporation</small></span>
+                <span class="ov-mover-price"><strong data-price>$512.30</strong><small class="is-up" data-change>+1.05%</small></span>
+                <span class="ov-mover-go" aria-hidden="true">↗</span>
+              </a>
+              <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer" data-symbol="TSLA">
+                <span class="ov-mover-badge" style="background:#e31937;">TS</span>
+                <span class="ov-mover-info"><strong>TSLA</strong><small>Tesla, Inc.</small></span>
+                <span class="ov-mover-price"><strong data-price>$431.90</strong><small class="is-down" data-change>−1.35%</small></span>
+                <span class="ov-mover-go" aria-hidden="true">↗</span>
+              </a>
+            </div>
+
+            <p class="ov-movers-label">Top Crypto · Global</p>
+            <div class="ov-crypto-wrap" data-crypto-ticker>
+              <div class="ov-crypto-track" data-crypto-track></div>
+            </div>
+          </section>
+
+          <section class="ov-section ov-recent-activity" aria-labelledby="recentActivityHeading">
+            <div class="ov-section-head">
+              <h3 id="recentActivityHeading">Recent activity</h3>
+              <p>Debits and credits from the last 24 hours</p>
+            </div>
+            <ul class="ov-activity-list" data-recent-activity-list>
+              <li class="ov-activity-empty">No recent activity in the last 24 hours.</li>
+            </ul>
+          </section>
+
+          </div>
+
+          <!-- ---- Crypto & Markets: dedicated dashboard section (sidebar + Recommended card) ---- -->
+          <div class="view-section is-hidden" data-view="crypto">
+            <section class="ov-section" style="margin-top: 0;">
+              <div class="ov-section-head">
+                <h3>Crypto &amp; Markets</h3>
+                <p>Buy, sell and track Bitcoin, Ethereum &amp; more</p>
+              </div>
+
+              <div class="acct-cards-bar"><span>Your account</span><button type="button" class="ov-eye-toggle acct-eye-toggle" data-acct-toggle aria-label="Show or hide account figures"><svg data-eye-open viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3.2"/></svg><svg data-eye-closed viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3l18 18"/><path d="M10.6 5.2C11 5.1 11.5 5 12 5c7 0 10.5 7 10.5 7a13.7 13.7 0 0 1-3.2 4.1M6.6 6.6C3.4 8.6 1.5 12 1.5 12s3.5 7 10.5 7c1.4 0 2.7-.3 3.8-.7"/><path d="M9.5 9.6a3.2 3.2 0 0 0 4.5 4.5"/></svg></button></div>
+              <div class="acct-cards" aria-label="Your account summary">
+                <div class="acct-card">
+                  <p class="acct-card-label">Wallet balance</p>
+                  <strong class="acct-card-value" data-acct-balance>$0.00</strong>
+                  <small>USD</small>
+                </div>
+                <div class="acct-card">
+                  <p class="acct-card-label">Deposited</p>
+                  <strong class="acct-card-value" data-acct-deposited>$0.00</strong>
+                  <small>Confirmed transfers to Binance</small>
+                </div>
+                <div class="acct-card">
+                  <p class="acct-card-label">Account tier</p>
+                  <strong class="acct-card-value" data-tier>Standard</strong>
+                  <div class="tier-bar" role="progressbar" aria-label="Account tier level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-tier-bar>
+                    <span class="tier-bar-fill" data-tier-fill></span>
+                  </div>
+                  <small>Set by the team</small>
+                </div>
+              </div>
+              
+
+              <div class="ov-stocks-partner">
+                <p>Buying and selling is handled by <strong>KuCoin</strong>, a global cryptocurrency exchange — you'll continue on their site to trade.<br><span style="font-size:12px;">Site won't load? Some networks block exchange websites — try another network, or use <a href="https://www.bybit.com" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:#111;">Bybit</a> instead.</span></p>
+                <a class="ov-partner-cta" href="https://www.kucoin.com" target="_blank" rel="noopener noreferrer">
+                  Open KuCoin <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+
+              <p class="ov-movers-label">Top Crypto</p>
+              <div class="ov-movers-grid">
+                <a class="ov-mover-card" href="https://www.kucoin.com" target="_blank" rel="noopener noreferrer" data-symbol="BTC">
+                  <span class="ov-mover-badge" style="background:#f7931a;">₿</span>
+                  <span class="ov-mover-info"><strong>BTC</strong><small>Bitcoin</small></span>
+                  <span class="ov-mover-price"><strong data-price>$109,240</strong><small class="is-up" data-change>+1.60%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.kucoin.com" target="_blank" rel="noopener noreferrer" data-symbol="ETH">
+                  <span class="ov-mover-badge" style="background:#627eea;">Ξ</span>
+                  <span class="ov-mover-info"><strong>ETH</strong><small>Ethereum</small></span>
+                  <span class="ov-mover-price"><strong data-price>$4,015</strong><small class="is-up" data-change>+2.90%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.kucoin.com" target="_blank" rel="noopener noreferrer" data-symbol="SOL">
+                  <span class="ov-mover-badge" style="background:#9945ff;">◎</span>
+                  <span class="ov-mover-info"><strong>SOL</strong><small>Solana</small></span>
+                  <span class="ov-mover-price"><strong data-price>$198.40</strong><small class="is-down" data-change>−0.80%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.kucoin.com" target="_blank" rel="noopener noreferrer" data-symbol="XRP">
+                  <span class="ov-mover-badge" style="background:#111111;">X</span>
+                  <span class="ov-mover-info"><strong>XRP</strong><small>Ripple</small></span>
+                  <span class="ov-mover-price"><strong data-price>$2.340</strong><small class="is-up" data-change>+3.10%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.kucoin.com" target="_blank" rel="noopener noreferrer" data-symbol="BNB">
+                  <span class="ov-mover-badge" style="background:#f0b90b;">BN</span>
+                  <span class="ov-mover-info"><strong>BNB</strong><small>BNB</small></span>
+                  <span class="ov-mover-price"><strong data-price>$712.50</strong><small class="is-up" data-change>+0.70%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.kucoin.com" target="_blank" rel="noopener noreferrer" data-symbol="DOGE">
+                  <span class="ov-mover-badge" style="background:#c2a633;">DG</span>
+                  <span class="ov-mover-info"><strong>DOGE</strong><small>Dogecoin</small></span>
+                  <span class="ov-mover-price"><strong data-price>$0.1820</strong><small class="is-up" data-change>+4.20%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.kucoin.com" target="_blank" rel="noopener noreferrer" data-symbol="ADA">
+                  <span class="ov-mover-badge" style="background:#0033ad;">AD</span>
+                  <span class="ov-mover-info"><strong>ADA</strong><small>Cardano</small></span>
+                  <span class="ov-mover-price"><strong data-price>$0.610</strong><small class="is-down" data-change>−1.10%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.kucoin.com" target="_blank" rel="noopener noreferrer" data-symbol="AVAX">
+                  <span class="ov-mover-badge" style="background:#e84142;">AV</span>
+                  <span class="ov-mover-info"><strong>AVAX</strong><small>Avalanche</small></span>
+                  <span class="ov-mover-price"><strong data-price>$31.85</strong><small class="is-up" data-change>+2.00%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </section>
+          </div>
+
+          <!-- ---- Metals: dedicated dashboard section (sidebar + Recommended card) ---- -->
+          <div class="view-section is-hidden" data-view="metals">
+            <section class="ov-section" style="margin-top: 0;">
+              <div class="ov-section-head">
+                <h3>Metals</h3>
+                <p>Live prices for physical-backed gold, silver &amp; more</p>
+              </div>
+
+              <div class="ov-stocks-partner">
+                <p>Prices and orders are handled by <strong>Kitco</strong>, an independent bullion dealer — you'll continue on their site to buy or sell.</p>
+                <a class="ov-partner-cta" href="https://www.kitco.com" target="_blank" rel="noopener noreferrer">
+                  Open Kitco <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+
+              <p class="ov-movers-label">Spot Prices · Per Ounce</p>
+              <div class="ov-movers-grid">
+                <a class="ov-mover-card" href="https://www.kitco.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#c9a227;">AU</span>
+                  <span class="ov-mover-info"><strong>Gold</strong><small>XAU/USD</small></span>
+                  <span class="ov-mover-price"><strong>$3,412.50</strong><small class="is-up">+0.42%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.kitco.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#9a9a9a;">AG</span>
+                  <span class="ov-mover-info"><strong>Silver</strong><small>XAG/USD</small></span>
+                  <span class="ov-mover-price"><strong>$39.86</strong><small class="is-up">+1.15%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.kitco.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#7c8791;">PT</span>
+                  <span class="ov-mover-info"><strong>Platinum</strong><small>XPT/USD</small></span>
+                  <span class="ov-mover-price"><strong>$1,468.20</strong><small class="is-down">−0.28%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.kitco.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#5f6368;">PD</span>
+                  <span class="ov-mover-info"><strong>Palladium</strong><small>XPD/USD</small></span>
+                  <span class="ov-mover-price"><strong>$1,092.75</strong><small class="is-up">+0.63%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </section>
+          </div>
+
+          <!-- ---- Stocks: dedicated dashboard section (sidebar + Recommended card) ---- -->
+          <div class="view-section is-hidden" data-view="stocks">
+            <section class="ov-section" style="margin-top: 0;">
+              <div class="ov-section-head">
+                <h3>Stocks</h3>
+                <p>Trade shares on US &amp; global exchanges</p>
+              </div>
+
+              <div class="ov-stocks-partner">
+                <p>Trades are placed with <strong>Interactive Brokers</strong>, a global brokerage — you'll continue on their site to buy or sell.</p>
+                <a class="ov-partner-cta" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  Open Interactive Brokers <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+
+              <p class="ov-movers-label">US Markets</p>
+              <div class="ov-movers-grid">
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer" data-symbol="NVDA">
+                  <span class="ov-mover-badge" style="background:#76b900;">NV</span>
+                  <span class="ov-mover-info"><strong>NVDA</strong><small>NVIDIA Corporation</small></span>
+                  <span class="ov-mover-price"><strong data-price>$187.40</strong><small class="is-up" data-change>+2.10%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer" data-symbol="AAPL">
+                  <span class="ov-mover-badge" style="background:#555555;">AA</span>
+                  <span class="ov-mover-info"><strong>AAPL</strong><small>Apple Inc.</small></span>
+                  <span class="ov-mover-price"><strong data-price>$256.80</strong><small class="is-up" data-change>+0.65%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer" data-symbol="MSFT">
+                  <span class="ov-mover-badge" style="background:#00a4ef;">MS</span>
+                  <span class="ov-mover-info"><strong>MSFT</strong><small>Microsoft Corporation</small></span>
+                  <span class="ov-mover-price"><strong data-price>$512.30</strong><small class="is-up" data-change>+1.05%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer" data-symbol="TSLA">
+                  <span class="ov-mover-badge" style="background:#e31937;">TS</span>
+                  <span class="ov-mover-info"><strong>TSLA</strong><small>Tesla, Inc.</small></span>
+                  <span class="ov-mover-price"><strong data-price>$431.90</strong><small class="is-down" data-change>−1.35%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+              </div>
+
+              <p class="ov-movers-label">LSE · United Kingdom</p>
+              <div class="ov-movers-grid">
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#eb1c24;">SH</span>
+                  <span class="ov-mover-info"><strong>SHEL</strong><small>Shell plc</small></span>
+                  <span class="ov-mover-price"><strong>£26.40</strong><small class="is-up">+0.85%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#7b2c8e;">AZ</span>
+                  <span class="ov-mover-info"><strong>AZN</strong><small>AstraZeneca</small></span>
+                  <span class="ov-mover-price"><strong>£118.20</strong><small class="is-down">−0.32%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#db0011;">HS</span>
+                  <span class="ov-mover-info"><strong>HSBA</strong><small>HSBC Holdings</small></span>
+                  <span class="ov-mover-price"><strong>£7.85</strong><small class="is-up">+1.10%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#00914a;">BP</span>
+                  <span class="ov-mover-info"><strong>BP</strong><small>BP plc</small></span>
+                  <span class="ov-mover-price"><strong>£4.62</strong><small class="is-up">+0.44%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+              </div>
+
+              <p class="ov-movers-label">XETRA · Germany</p>
+              <div class="ov-movers-grid">
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#0faaff;">SA</span>
+                  <span class="ov-mover-info"><strong>SAP</strong><small>SAP SE</small></span>
+                  <span class="ov-mover-price"><strong>€248.60</strong><small class="is-up">+1.35%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#009999;">SI</span>
+                  <span class="ov-mover-info"><strong>SIE</strong><small>Siemens AG</small></span>
+                  <span class="ov-mover-price"><strong>€198.40</strong><small class="is-up">+0.52%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#001e50;">VW</span>
+                  <span class="ov-mover-info"><strong>VOW3</strong><small>Volkswagen AG</small></span>
+                  <span class="ov-mover-price"><strong>€112.75</strong><small class="is-down">−0.68%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#003781;">AL</span>
+                  <span class="ov-mover-info"><strong>ALV</strong><small>Allianz SE</small></span>
+                  <span class="ov-mover-price"><strong>€321.90</strong><small class="is-up">+0.91%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+              </div>
+
+              <p class="ov-movers-label">TSE · Japan</p>
+              <div class="ov-movers-grid">
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#eb0a1e;">TM</span>
+                  <span class="ov-mover-info"><strong>7203</strong><small>Toyota Motor</small></span>
+                  <span class="ov-mover-price"><strong>¥2,845</strong><small class="is-up">+0.60%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#003791;">SO</span>
+                  <span class="ov-mover-info"><strong>6758</strong><small>Sony Group</small></span>
+                  <span class="ov-mover-price"><strong>¥3,210</strong><small class="is-up">+1.42%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#e60012;">NT</span>
+                  <span class="ov-mover-info"><strong>7974</strong><small>Nintendo</small></span>
+                  <span class="ov-mover-price"><strong>¥9,680</strong><small class="is-down">−0.25%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#8a8f98;">SB</span>
+                  <span class="ov-mover-info"><strong>9984</strong><small>SoftBank Group</small></span>
+                  <span class="ov-mover-price"><strong>¥8,420</strong><small class="is-up">+2.15%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+              </div>
+
+              <p class="ov-movers-label">NSE · India</p>
+              <div class="ov-movers-grid">
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#003da5;">RE</span>
+                  <span class="ov-mover-info"><strong>RELIANCE</strong><small>Reliance Industries</small></span>
+                  <span class="ov-mover-price"><strong>₹2,940.50</strong><small class="is-up">+0.95%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#0b3861;">TC</span>
+                  <span class="ov-mover-info"><strong>TCS</strong><small>Tata Consultancy Services</small></span>
+                  <span class="ov-mover-price"><strong>₹4,120.75</strong><small class="is-down">−0.38%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#ed1c24;">HD</span>
+                  <span class="ov-mover-info"><strong>HDFCBANK</strong><small>HDFC Bank</small></span>
+                  <span class="ov-mover-price"><strong>₹1,685.20</strong><small class="is-up">+1.20%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#007cc3;">IN</span>
+                  <span class="ov-mover-info"><strong>INFY</strong><small>Infosys</small></span>
+                  <span class="ov-mover-price"><strong>₹1,842.60</strong><small class="is-up">+0.55%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+              </div>
+
+              <p class="ov-movers-label">JSE · South Africa</p>
+              <div class="ov-movers-grid">
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#d71920;">NP</span>
+                  <span class="ov-mover-info"><strong>NPN</strong><small>Naspers</small></span>
+                  <span class="ov-mover-price"><strong>R3,845.00</strong><small class="is-up">+1.05%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#ffcb05;">MG</span>
+                  <span class="ov-mover-info"><strong>MTN</strong><small>MTN Group</small></span>
+                  <span class="ov-mover-price"><strong>R118.40</strong><small class="is-down">−0.72%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#0033a0;">SB</span>
+                  <span class="ov-mover-info"><strong>SBK</strong><small>Standard Bank</small></span>
+                  <span class="ov-mover-price"><strong>R215.60</strong><small class="is-up">+0.48%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#e60000;">VC</span>
+                  <span class="ov-mover-info"><strong>VOD</strong><small>Vodacom Group</small></span>
+                  <span class="ov-mover-price"><strong>R132.90</strong><small class="is-up">+0.85%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+              </div>
+
+              <p class="ov-movers-label">B3 · Brazil</p>
+              <div class="ov-movers-grid">
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#009b3a;">PB</span>
+                  <span class="ov-mover-info"><strong>PETR4</strong><small>Petrobras</small></span>
+                  <span class="ov-mover-price"><strong>R$38.20</strong><small class="is-up">+0.62%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#f5c400;">VL</span>
+                  <span class="ov-mover-info"><strong>VALE3</strong><small>Vale S.A.</small></span>
+                  <span class="ov-mover-price"><strong>R$68.45</strong><small class="is-down">−1.05%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#ec7000;">IT</span>
+                  <span class="ov-mover-info"><strong>ITUB4</strong><small>Itaú Unibanco</small></span>
+                  <span class="ov-mover-price"><strong>R$34.90</strong><small class="is-up">+0.77%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#0d1b4c;">AM</span>
+                  <span class="ov-mover-info"><strong>ABEV3</strong><small>Ambev</small></span>
+                  <span class="ov-mover-price"><strong>R$13.85</strong><small class="is-up">+0.33%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+              </div>
+
+              <p class="ov-movers-label">TSX · Canada</p>
+              <div class="ov-movers-grid">
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#95bf47;">SP</span>
+                  <span class="ov-mover-info"><strong>SHOP</strong><small>Shopify Inc.</small></span>
+                  <span class="ov-mover-price"><strong>C$118.40</strong><small class="is-up">+2.35%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#005daa;">RB</span>
+                  <span class="ov-mover-info"><strong>RY</strong><small>Royal Bank of Canada</small></span>
+                  <span class="ov-mover-price"><strong>C$168.20</strong><small class="is-up">+0.58%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#a6192e;">EN</span>
+                  <span class="ov-mover-info"><strong>ENB</strong><small>Enbridge Inc.</small></span>
+                  <span class="ov-mover-price"><strong>C$58.90</strong><small class="is-down">−0.41%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+                <a class="ov-mover-card" href="https://www.interactivebrokers.com" target="_blank" rel="noopener noreferrer">
+                  <span class="ov-mover-badge" style="background:#f5811f;">CN</span>
+                  <span class="ov-mover-info"><strong>CNR</strong><small>Canadian National Railway</small></span>
+                  <span class="ov-mover-price"><strong>C$148.75</strong><small class="is-up">+0.66%</small></span>
+                  <span class="ov-mover-go" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </section>
+          </div>
+
+          <!-- ---- Settings: profile information ---- -->
+          <div class="view-section is-hidden" data-view="settings">
+            <div class="settings-layout">
+              <aside class="settings-rail">
+                <h2>Settings</h2>
+                <div class="settings-update-summary">
+                  <div class="settings-summary-heading">
+                    <strong>Profile update</strong>
+                    <span>Account</span>
+                  </div>
+                  <p>Keep your personal and contact details up to date.</p>
+                </div>
+                <nav class="settings-section-nav" aria-label="Profile settings sections">
+                  <a class="is-active" href="#settings-personal">Personal details</a>
+                </nav>
+                <div class="settings-help">
+                  <h3>Need help?</h3>
+                  <p>Contact our team for assistance with your account.</p>
+                  <a href="contact.html">Contact support <span aria-hidden="true">↗</span></a>
+                </div>
+              </aside>
+
+              <section class="settings-main" aria-labelledby="settings-main-title">
+                <header class="settings-main-header">
+                  <p class="profile-eyebrow">Your account</p>
+                  <h1 id="settings-main-title">Basic Information</h1>
+                  <p>Manage the details associated with your profile.</p>
+                </header>
+
+                <div class="settings-identity">
+                  <div class="settings-avatar" data-initials>—</div>
+                  <div>
+                    <strong data-name>—</strong>
+                    <span data-email>—</span>
+                  </div>
+                </div>
+
+                <form class="settings-form" id="profile-information-form">
+                  <section class="settings-form-section" id="settings-personal">
+                    <h2>Personal details</h2>
+                    <div class="settings-form-grid">
+                      <label class="settings-field">
+                        <span>Full name</span>
+                        <input type="text" name="fullName" autocomplete="name" required />
+                      </label>
+                      <label class="settings-field">
+                        <span>Email address</span>
+                        <input type="email" name="email" autocomplete="email" readonly />
+                      </label>
+                      <label class="settings-field">
+                        <span>Phone number</span>
+                        <input type="tel" name="phone" autocomplete="tel" />
+                      </label>
+                      <label class="settings-field">
+                        <span>Sex</span>
+                        <select name="sex">
+                          <option value="">Select</option>
+                          <option>Female</option>
+                          <option>Male</option>
+                          <option>Prefer not to say</option>
+                        </select>
+                      </label>
+                      <label class="settings-field">
+                        <span>Date of birth</span>
+                        <input type="date" name="dateOfBirth" autocomplete="bday" />
+                      </label>
+                    </div>
+                  </section>
+
+                  <div class="settings-form-footer">
+                    <p id="profile-form-status" role="status" aria-live="polite"></p>
+                    <button type="submit" class="settings-save-button">Update information</button>
+                  </div>
+                </form>
+
+              </section>
+            </div>
+          </div>
+
+          <div class="view-section is-hidden" data-view="history">
+            <div class="history-page">
+              <header class="settings-main-header">
+                <p class="profile-eyebrow">Account activity</p>
+                <h1 id="history-page-title">History</h1>
+                <p>Review your stock, crypto, and metals purchase requests.</p>
+              </header>
+              <section class="settings-history" aria-labelledby="settings-history-title">
+                <header class="settings-history-header">
+                  <div>
+                    <h2 id="settings-history-title">Purchase history</h2>
+                    <p>Each request stays pending until your transfer is verified.</p>
+                  </div>
+                  <span>Latest 250</span>
+                </header>
+                <p class="settings-history-status" id="settings-history-status" role="status" aria-live="polite">Loading history...</p>
+                <div class="settings-history-wrap" id="settings-history-wrap" hidden>
+                  <table class="settings-history-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Asset</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Currency</th>
+                        <th scope="col">Date &amp; time</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="settings-history-body"></tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="profile.js"></script>
+  </body>
+</html>

@@ -275,7 +275,7 @@ async function sendAdminVerificationCode(email, code) {
   await transport.sendMail({
     from: process.env.EMAIL_FROM.trim(),
     to: email,
-    subject: 'Your DuaneCapital admin sign-in code',
+    subject: 'Your Marsvest admin sign-in code',
     text: `Your admin sign-in code is ${code}. It expires in 10 minutes. If you did not request this code, secure your account immediately.`,
     html: `<p>Your admin sign-in code is <strong>${code}</strong>.</p><p>It expires in 10 minutes. If you did not request this code, secure your account immediately.</p>`,
   });
@@ -287,7 +287,7 @@ async function sendPasswordResetLink(email, resetUrl) {
   await transport.sendMail({
     from: process.env.EMAIL_FROM.trim(),
     to: email,
-    subject: 'Reset your DuaneCapital password',
+    subject: 'Reset your Marsvest password',
     text: `Use this one-time link to reset your password. It expires in 30 minutes: ${resetUrl}\n\nIf you did not request this, you can ignore this email.`,
     html: `<p>Use this one-time link to reset your password. It expires in 30 minutes:</p><p><a href="${resetUrl}">Reset password</a></p><p>If you did not request this, you can ignore this email.</p>`,
   });
@@ -861,7 +861,7 @@ const supportChatLimiter = rateLimit({
 function supportSystemPrompt() {
   const supportChannel = 'Telegram';
   return [
-    'You are the DuaneCapital support assistant, an AI inside the signed-in user\'s profile dashboard. If asked, say clearly that you are an AI. Never pretend to be a person.',
+    'You are the Marsvest support assistant, an AI inside the signed-in user\'s profile dashboard. If asked, say clearly that you are an AI. Never pretend to be a person.',
     '',
     'What you can help with:',
     '- Finding things in the dashboard: Overview, Crypto, Metals, Stocks and Settings (Settings holds Purchase history).',

@@ -3,10 +3,10 @@
           general: {
             title: "General",
             items: [
-              { q: "What is DuaneCapital?", a: "DuaneCapital is an education-first platform that breaks investing concepts down into plain language, so you understand a product before you decide anything." },
-              { q: "Is DuaneCapital a broker or a bank?", a: "No. We don't hold funds, manage accounts, or execute trades. We explain how different investments work so you can make informed choices wherever you invest." },
+              { q: "What is Marsvest?", a: "Marsvest is an education-first platform that breaks investing concepts down into plain language, so you understand a product before you decide anything." },
+              { q: "Is Marsvest a broker or a bank?", a: "No. We don't hold funds, manage accounts, or execute trades. We explain how different investments work so you can make informed choices wherever you invest." },
               { q: "Do you give personalised financial advice?", a: "No. Everything here is general information, not advice tailored to your circumstances. Speak with a licensed advisor for recommendations specific to you." },
-              { q: "Is DuaneCapital free to use?", a: "Yes. Every article and FAQ on this site is free to read, with no account required." },
+              { q: "Is Marsvest free to use?", a: "Yes. Every article and FAQ on this site is free to read, with no account required." },
             ],
           },
           security: {

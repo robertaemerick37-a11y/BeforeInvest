@@ -1343,7 +1343,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     addMessage(
       "assistant",
-      "Hi! I'm the DuaneCapital AI assistant. I can help you find your way around the dashboard, explain how buying and the payment steps work, and answer general questions. What do you need?"
+      "Hi! I'm the Marsvest AI assistant. I can help you find your way around the dashboard, explain how buying and the payment steps work, and answer general questions. What do you need?"
     );
 
     fab.addEventListener("click", () => setOpen(panel.hidden));

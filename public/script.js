@@ -126,6 +126,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const testimonialTabs = [...document.querySelectorAll(".testimonial-tab")];
   const testimonialPanels = [...document.querySelectorAll(".testimonial-panel")];
   const testimonialPhotos = [...document.querySelectorAll(".testimonial-photo")];
+  const testimonialsSection = document.querySelector(".testimonials");
+  const testimonialMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let restartTestimonialAutoplay = () => {};
 
   function showTestimonial(index, moveFocus = false) {
     testimonialTabs.forEach((tab, i) => {
@@ -139,8 +142,72 @@ document.addEventListener("DOMContentLoaded", () => {
     if (moveFocus) testimonialTabs[index].focus();
   }
 
+  if (testimonialsSection && testimonialTabs.length > 1) {
+    let activeTimer = null;
+    let isHovered = false;
+    let hasFocus = false;
+    let isInView = true;
+
+    function stopAutoplay() {
+      window.clearTimeout(activeTimer);
+      activeTimer = null;
+    }
+
+    function scheduleAutoplay() {
+      stopAutoplay();
+      if (
+        document.hidden ||
+        !isInView ||
+        isHovered ||
+        hasFocus ||
+        testimonialMotionPreference.matches
+      ) {
+        return;
+      }
+
+      activeTimer = window.setTimeout(() => {
+        const currentIndex = testimonialTabs.findIndex((tab) => tab.classList.contains("is-active"));
+        showTestimonial((currentIndex + 1) % testimonialTabs.length);
+        scheduleAutoplay();
+      }, 6500);
+    }
+
+    restartTestimonialAutoplay = scheduleAutoplay;
+    testimonialsSection.addEventListener("pointerenter", () => {
+      isHovered = true;
+      stopAutoplay();
+    });
+    testimonialsSection.addEventListener("pointerleave", () => {
+      isHovered = false;
+      scheduleAutoplay();
+    });
+    testimonialsSection.addEventListener("focusin", () => {
+      hasFocus = true;
+      stopAutoplay();
+    });
+    testimonialsSection.addEventListener("focusout", (event) => {
+      hasFocus = testimonialsSection.contains(event.relatedTarget);
+      if (!hasFocus) scheduleAutoplay();
+    });
+    document.addEventListener("visibilitychange", scheduleAutoplay);
+    testimonialMotionPreference.addEventListener("change", scheduleAutoplay);
+
+    if ("IntersectionObserver" in window) {
+      const testimonialsObserver = new IntersectionObserver(([entry]) => {
+        isInView = entry.isIntersecting;
+        scheduleAutoplay();
+      });
+      testimonialsObserver.observe(testimonialsSection);
+    }
+
+    scheduleAutoplay();
+  }
+
   testimonialTabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => showTestimonial(index));
+    tab.addEventListener("click", () => {
+      showTestimonial(index);
+      restartTestimonialAutoplay();
+    });
     tab.addEventListener("keydown", (event) => {
       const last = testimonialTabs.length - 1;
       let next = null;

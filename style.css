@@ -1648,6 +1648,7 @@ a {
 .site-footer .brand-mark {
   background: #fff;
   color: #000;
+  filter: invert(1);
 }
 
 .site-footer .brand strong,

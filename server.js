@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const nodemailer = require('nodemailer');
-const sqlite3 = require('sqlite3').verbose();
+const { createClient } = require('@tursodatabase/serverless/compat');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const rateLimit = require('express-rate-limit');
@@ -16,6 +16,12 @@ if (!/^[a-f\d]{64}$/i.test(process.env.PROFILE_ENCRYPTION_KEY || '')) {
 }
 if (!/^[a-f\d]{64}$/i.test(process.env.JWT_SECRET || '')) {
   throw new Error('JWT_SECRET must be a 64-character hexadecimal key.');
+}
+if (!process.env.TURSO_DATABASE_URL || !/^(libsql|https):\/\//.test(process.env.TURSO_DATABASE_URL)) {
+  throw new Error('TURSO_DATABASE_URL must be a Turso libsql:// or https:// database URL.');
+}
+if (!process.env.TURSO_AUTH_TOKEN) {
+  throw new Error('TURSO_AUTH_TOKEN must be configured.');
 }
 
 const profileEncryptionKey = Buffer.from(process.env.PROFILE_ENCRYPTION_KEY, 'hex');
@@ -293,37 +299,25 @@ async function sendPasswordResetLink(email, resetUrl) {
   });
 }
 
-// Initialize Database
-const db = new sqlite3.Database('./users.db', (err) => {
-  if (err) console.error('Database error:', err);
-  else console.log('Connected to SQLite database.');
+const db = createClient({
+  url: process.env.TURSO_DATABASE_URL,
+  authToken: process.env.TURSO_AUTH_TOKEN,
 });
 
-function dbRun(sql, params = []) {
-  return new Promise((resolve, reject) => {
-    db.run(sql, params, function (err) {
-      if (err) reject(err);
-      else resolve(this);
-    });
-  });
+async function dbRun(sql, params = [], connection = db) {
+  const result = await connection.execute(sql, params);
+  const lastID = result.lastInsertRowid === undefined ? undefined : Number(result.lastInsertRowid);
+  return { lastID, changes: result.rowsAffected };
 }
 
-function dbAll(sql, params = []) {
-  return new Promise((resolve, reject) => {
-    db.all(sql, params, (err, rows) => {
-      if (err) reject(err);
-      else resolve(rows);
-    });
-  });
+async function dbAll(sql, params = [], connection = db) {
+  const result = await connection.execute(sql, params);
+  return result.rows;
 }
 
-function dbGet(sql, params = []) {
-  return new Promise((resolve, reject) => {
-    db.get(sql, params, (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
-    });
-  });
+async function dbGet(sql, params = [], connection = db) {
+  const result = await connection.execute(sql, params);
+  return result.rows[0];
 }
 
 async function initializeDatabase() {
@@ -392,8 +386,12 @@ async function initializeDatabase() {
   `);
   await dbRun('CREATE INDEX IF NOT EXISTS account_ledger_user_created ON account_ledger(user_id, created_at DESC)');
 
-  await dbRun('PRAGMA secure_delete = ON');
-  const users = await dbAll('SELECT id, email, email_lookup, profile_data, balance, created_at FROM users');
+  const users = await dbAll(
+    `SELECT id, email, email_lookup, profile_data, balance, created_at
+     FROM users
+     WHERE email NOT LIKE ? OR email_lookup IS NULL OR profile_data IS NULL OR balance != 0`,
+    [`${encryptedEmailPrefix}%`],
+  );
   let migratedPlaintext = false;
   for (const user of users) {
     const profile = user.profile_data ? decryptProfile(user.profile_data) : {};
@@ -413,10 +411,27 @@ async function initializeDatabase() {
       );
     }
   }
-
   await dbRun('CREATE UNIQUE INDEX IF NOT EXISTS users_email_lookup_unique ON users(email_lookup)');
-  if (migratedPlaintext) await dbRun('VACUUM');
+  if (migratedPlaintext) {
+    console.info('Migrated legacy user records to encrypted profile storage in Turso.');
+  }
 }
+
+let databaseReady;
+function ensureDatabaseReady() {
+  if (!databaseReady) databaseReady = initializeDatabase();
+  return databaseReady;
+}
+
+app.use('/api', async (req, res, next) => {
+  try {
+    await ensureDatabaseReady();
+    next();
+  } catch (error) {
+    console.error('Database initialization failed:', error.message);
+    res.status(500).json({ error: 'Database is unavailable.' });
+  }
+});
 
 // Admin Authorization Middleware
 function authenticateToken(req, res, next) {
@@ -648,17 +663,17 @@ app.post('/api/password-reset/complete', passwordResetCompleteLimiter, async (re
   }
 
   const tokenHash = createHash('sha256').update(token).digest('hex');
-  let transactionStarted = false;
+  let transaction;
   try {
-    await dbRun('BEGIN IMMEDIATE');
-    transactionStarted = true;
+    transaction = await db.transaction('write');
     const reset = await dbGet(
       'SELECT user_id FROM password_reset_tokens WHERE token_hash = ? AND expires_at > ?',
       [tokenHash, Date.now()],
+      transaction,
     );
     if (!reset) {
-      await dbRun('ROLLBACK');
-      transactionStarted = false;
+      await transaction.rollback();
+      transaction = null;
       return res.status(400).json({ error: 'This reset link is invalid or expired. Request a new one.' });
     }
 
@@ -666,16 +681,23 @@ app.post('/api/password-reset/complete', passwordResetCompleteLimiter, async (re
     const updated = await dbRun(
       'UPDATE users SET password = ?, token_version = token_version + 1 WHERE id = ?',
       [passwordHash, reset.user_id],
+      transaction,
     );
     if (!updated.changes) throw new Error('Password reset user not found.');
-    await dbRun('DELETE FROM password_reset_tokens WHERE user_id = ?', [reset.user_id]);
-    await dbRun('COMMIT');
-    transactionStarted = false;
+    await dbRun('DELETE FROM password_reset_tokens WHERE user_id = ?', [reset.user_id], transaction);
+    await transaction.commit();
+    transaction = null;
     clearSessionCookie(res);
     res.setHeader('Cache-Control', 'no-store');
     res.json({ message: 'Password updated. You can now sign in.' });
   } catch (error) {
-    if (transactionStarted) await dbRun('ROLLBACK').catch(() => {});
+    if (transaction) {
+      try {
+        await transaction.rollback();
+      } catch (rollbackError) {
+        console.error('Password reset rollback failed:', rollbackError.message);
+      }
+    }
     console.error('Password reset completion failed:', error.message);
     res.status(500).json({ error: 'Could not reset password. Request a new link and try again.' });
   }
@@ -1023,31 +1045,31 @@ app.put('/api/admin/transactions/:id/confirm', verifyAdmin, async (req, res) => 
     return res.status(400).json({ error: 'Enter a valid positive amount to credit in USD.' });
   }
 
-  let inTransaction = false;
+  let transaction;
   try {
-    await dbRun('BEGIN IMMEDIATE');
-    inTransaction = true;
+    transaction = await db.transaction('write');
     const transactionRow = await dbGet(
       'SELECT user_id, details, status FROM user_transactions WHERE id = ?',
       [transactionId],
+      transaction,
     );
     if (!transactionRow) {
-      await dbRun('ROLLBACK');
-      inTransaction = false;
+      await transaction.rollback();
+      transaction = null;
       return res.status(404).json({ error: 'Purchase not found.' });
     }
     if (transactionRow.status !== 'Pending') {
-      await dbRun('ROLLBACK');
-      inTransaction = false;
+      await transaction.rollback();
+      transaction = null;
       return res.status(409).json({ error: 'This purchase has already been processed.' });
     }
 
     const purchase = decryptRecord(transactionRow.details, transactionEncryptionAad);
     const amount = roundMoney(creditAmount);
-    const user = await dbGet('SELECT profile_data FROM users WHERE id = ?', [transactionRow.user_id]);
+    const user = await dbGet('SELECT profile_data FROM users WHERE id = ?', [transactionRow.user_id], transaction);
     if (!user) {
-      await dbRun('ROLLBACK');
-      inTransaction = false;
+      await transaction.rollback();
+      transaction = null;
       return res.status(404).json({ error: 'Purchase owner not found.' });
     }
 
@@ -1061,10 +1083,12 @@ app.put('/api/admin/transactions/:id/confirm', verifyAdmin, async (req, res) => 
     await dbRun(
       'UPDATE users SET profile_data = ? WHERE id = ?',
       [encryptProfile({ ...profile, balance }), transactionRow.user_id],
+      transaction,
     );
     const updatedTransaction = await dbRun(
       "UPDATE user_transactions SET status = 'Completed', details = ? WHERE id = ? AND status = 'Pending'",
       [encryptRecord({ ...purchase, status: 'Completed' }, transactionEncryptionAad), transactionId],
+      transaction,
     );
     if (updatedTransaction.changes !== 1) {
       throw new Error('Purchase status changed before it could be confirmed.');
@@ -1082,13 +1106,20 @@ app.put('/api/admin/transactions/:id/confirm', verifyAdmin, async (req, res) => 
           adminId: req.user.userId,
         }, ledgerEncryptionAad),
       ],
+      transaction,
     );
-    await dbRun('COMMIT');
-    inTransaction = false;
+    await transaction.commit();
+    transaction = null;
 
     res.json({ message: 'Purchase confirmed and credited to the user balance.', balance });
   } catch (error) {
-    if (inTransaction) await dbRun('ROLLBACK').catch(() => {});
+    if (transaction) {
+      try {
+        await transaction.rollback();
+      } catch (rollbackError) {
+        console.error('Purchase confirmation rollback failed:', rollbackError.message);
+      }
+    }
     console.error('Purchase confirmation failed:', error.message);
     res.status(500).json({ error: 'Could not confirm and credit this purchase.' });
   }
@@ -1153,7 +1184,7 @@ app.put('/api/admin/users/:id/account', verifyAdmin, async (req, res) => {
     return res.status(400).json({ error: 'Invalid tier.' });
   }
 
-  let inTransaction = false;
+  let transaction;
   try {
     const user = await dbGet('SELECT profile_data FROM users WHERE id = ?', [userId]);
     if (!user) return res.status(404).json({ error: 'User not found.' });
@@ -1193,44 +1224,60 @@ app.put('/api/admin/users/:id/account', verifyAdmin, async (req, res) => {
       return res.json({ message: 'Nothing changed.', ...current });
     }
 
-    await dbRun('BEGIN IMMEDIATE');
-    inTransaction = true;
-    await dbRun('UPDATE users SET profile_data = ? WHERE id = ?', [encryptProfile({ ...profile, ...next }), userId]);
+    transaction = await db.transaction('write');
+    await dbRun(
+      'UPDATE users SET profile_data = ? WHERE id = ?',
+      [encryptProfile({ ...profile, ...next }), userId],
+      transaction,
+    );
     for (const change of changes) {
       await dbRun(
         'INSERT INTO account_ledger (user_id, details) VALUES (?, ?)',
         [userId, encryptRecord({ ...change, reason: cleanReason, txHash: cleanHash, adminId: req.user.userId }, ledgerEncryptionAad)],
+        transaction,
       );
     }
-    await dbRun('COMMIT');
-    inTransaction = false;
+    await transaction.commit();
+    transaction = null;
 
     res.json({ message: 'Account updated and logged.', ...next });
   } catch (error) {
-    if (inTransaction) await dbRun('ROLLBACK').catch(() => {});
+    if (transaction) {
+      try {
+        await transaction.rollback();
+      } catch (rollbackError) {
+        console.error('Admin account update rollback failed:', rollbackError.message);
+      }
+    }
     console.error('Admin account update failed:', error.message);
     res.status(500).json({ error: 'Failed to update account.' });
   }
 });
 
 // Delete user by ID
-app.delete('/api/admin/users/:id', verifyAdmin, (req, res) => {
+app.delete('/api/admin/users/:id', verifyAdmin, async (req, res) => {
   const userId = req.params.id;
-  const query = `DELETE FROM users WHERE id = ?`;
-  db.run(query, [userId], function (err) {
-    if (err) return res.status(500).json({ error: 'Failed to delete user.' });
+  try {
+    await dbRun('DELETE FROM users WHERE id = ?', [userId]);
     res.json({ message: 'User deleted successfully.' });
-  });
+  } catch (error) {
+    console.error('Admin user deletion failed:', error.message);
+    res.status(500).json({ error: 'Failed to delete user.' });
+  }
 });
 
-initializeDatabase()
-  .then(() => {
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
+if (require.main === module) {
+  ensureDatabaseReady()
+    .then(() => {
+      const PORT = process.env.PORT || 5000;
+      app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+      });
+    })
+    .catch((error) => {
+      console.error('Database initialization or encryption migration failed:', error.message);
+      process.exitCode = 1;
     });
-  })
-  .catch((error) => {
-    console.error('Database initialization or encryption migration failed:', error.message);
-    process.exitCode = 1;
-  });
+}
+
+module.exports = app;

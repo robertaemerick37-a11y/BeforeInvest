@@ -2,6 +2,10 @@
 
 The server uses Turso/libSQL for persistent account and transaction data. Do
 not use a local `users.db` file as the production database on Vercel.
+The website pages, stylesheets, browser scripts, and media assets live in
+`public/`, where Vercel serves them as static assets. Express `express.static()`
+is only used as a local-development fallback; Vercel does not serve static
+assets from that middleware.
 
 ## Configure the database
 

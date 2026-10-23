@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken');
 const rateLimit = require('express-rate-limit');
 const quotesRouter = require('./quotes.route');
 const { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes, randomInt, timingSafeEqual } = require('crypto');
-const { readFileSync } = require('fs');
 const path = require('path');
 
 if (!/^[a-f\d]{64}$/i.test(process.env.PROFILE_ENCRYPTION_KEY || '')) {
@@ -106,11 +105,6 @@ function publicProfile(profile) {
 
 const app = express();
 
-const learnHtml = readFileSync(path.join(__dirname, 'learn.html'), 'utf8');
-const learnInlineScript = learnHtml.match(/<script>([\s\S]*?)<\/script>/i)?.[1];
-if (!learnInlineScript) throw new Error('The FAQ script expected by the Content Security Policy was not found.');
-const learnScriptHash = `'sha256-${createHash('sha256').update(learnInlineScript.replace(/\r\n?/g, '\n')).digest('base64')}'`;
-
 app.disable('x-powered-by');
 app.use(helmet({
   contentSecurityPolicy: {
@@ -121,7 +115,7 @@ app.use(helmet({
       objectSrc: ["'none'"],
       frameAncestors: ["'none'"],
       formAction: ["'self'"],
-      scriptSrc: ["'self'", learnScriptHash],
+      scriptSrc: ["'self'"],
       scriptSrcAttr: ["'none'"],
       styleSrc: ["'self'", 'https://fonts.googleapis.com'],
       styleSrcAttr: ["'unsafe-inline'"],
@@ -196,7 +190,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use('/api/quotes', quotesRouter);
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ---- 2. DEFINE THE RATE LIMITER ----
 const authLimiter = rateLimit({

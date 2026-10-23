@@ -726,10 +726,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const ctx = globeCanvas.getContext("2d");
     const DPR = Math.min(window.devicePixelRatio || 1, 2);
 
-    // 20 countries, each represented by a major city. New York is the hub
+    // 19 countries, each represented by a major city. New York is the hub
     // every other market connects back to.
     const GLOBE_MARKERS = [
-      { lat: 6.5244, lon: 3.3792, label: "Lagos" }, // Nigeria
       { lat: 51.5074, lon: -0.1278, label: "London" }, // United Kingdom
       { lat: 40.7128, lon: -74.006, label: "New York", hub: true }, // United States
       { lat: 25.2048, lon: 55.2708, label: "Dubai" }, // UAE

@@ -1204,7 +1204,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <option value="South Africa">South Africa</option>
                 <option value="Brazil">Brazil</option>
                 <option value="Canada">Canada</option>
-                <option value="Nigeria">Nigeria</option>
               </select>
             </div>
 

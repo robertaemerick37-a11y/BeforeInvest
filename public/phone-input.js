@@ -157,7 +157,6 @@ NC|New Caledonia|687
 NZ|New Zealand|64
 NI|Nicaragua|505
 NE|Niger|227
-NG|Nigeria|234
 NU|Niue|683
 KP|North Korea|850
 MK|North Macedonia|389
@@ -264,7 +263,7 @@ ZW|Zimbabwe|263`;
   const DEFAULT_PLACEHOLDER = input.getAttribute("placeholder") || "";
   const SEARCH_PLACEHOLDER = "Type a code, e.g. 23";
 
-  let selected = COUNTRIES.find((c) => c.iso === "NG");
+  let selected = COUNTRIES.find((c) => c.iso === "US");
   let searching = false;
   let savedNumber = "";
   let shown = [];
@@ -307,7 +306,7 @@ ZW|Zimbabwe|263`;
     return starts.concat(contains);
   }
 
-  // Typed a whole international number ("+2348012345678")? Find the country
+  // Typed a whole international number? Find the country
   // whose code it starts with.
   function countryFromFullNumber(digits) {
     const candidates = COUNTRIES.filter((c) => digits.startsWith(c.dial)).sort(

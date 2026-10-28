@@ -59,3 +59,29 @@ The generated SQL file contains sensitive account information, including
 password hashes. Keep it outside the repository, private, and delete it after
 verifying the import. Do not run the import more than once against the same
 database.
+
+## Grant an account admin access
+
+1. Register the account through the live website and verify that it can sign
+   in as a regular user.
+2. Pull the Production environment variables from the linked Vercel project to
+   a local-only file. Do not commit or share that file:
+
+   ```powershell
+   vercel env pull .env.production.local --environment=production
+   ```
+
+3. From the repository root, run the promotion script with the account email.
+   It will show the configured database and ask you to type `PROMOTE` before
+   making the change:
+
+   ```powershell
+   $env:ENV_FILE = ".env.production.local"
+   node scripts\promote-user-to-admin.js "you@example.com"
+   Remove-Item Env:ENV_FILE
+   ```
+
+The script changes only the matching account's database role; no GitHub push or
+redeploy is needed. Admin sign-in requires the configured SMTP email verification
+service. Never put account passwords or production secrets in source code or
+commit them to GitHub.

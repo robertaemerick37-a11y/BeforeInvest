@@ -1149,24 +1149,39 @@ document.addEventListener("DOMContentLoaded", async () => {
         : defaultPaymentOption();
       purchase.network = paymentOption.network;
 
-      // Step 1: close the buy form and show where to send the payment.
-      backdrop.classList.remove("is-open");
-      panel.setAttribute("aria-hidden", "true");
+      // Record the purchase request before opening payment instructions so it
+      // appears in purchase history and the admin pending queue immediately.
+      const submitButton = form.querySelector(".asset-buy-submit");
+      const errorLine = form.querySelector(".asset-buy-error");
+      submitButton.disabled = true;
+      submitButton.textContent = "Recording...";
+      errorLine.hidden = true;
 
-      // Step 2: only when the person presses "Completed" is the request
-      // recorded, and only then does the pending message appear.
-      showPaymentDetails(purchase, totalText, paymentOption, async () => {
-        const response = await fetch("/api/profile/me/transactions", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(purchase),
+      fetch("/api/profile/me/transactions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(purchase),
+      })
+        .then(async (response) => {
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(data.error || "Could not record this purchase.");
+
+          await loadTransactionHistory();
+          backdrop.classList.remove("is-open");
+          panel.setAttribute("aria-hidden", "true");
+          showPaymentDetails(purchase, totalText, paymentOption, async () => {
+            showPaymentProcessing();
+            await loadTransactionHistory();
+          });
+        })
+        .catch((error) => {
+          errorLine.textContent = error.message || "Could not record this purchase. Please try again.";
+          errorLine.hidden = false;
+        })
+        .finally(() => {
+          submitButton.disabled = false;
+          submitButton.textContent = "Pay";
         });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok) throw new Error(data.error || "Could not record this purchase.");
-
-        showPaymentProcessing();
-        loadTransactionHistory();
-      });
     };
 
     backdrop.classList.add("is-open");
@@ -1232,6 +1247,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <select id="asset-buy-network"></select>
           </div>
 
+          <p class="asset-buy-error" role="alert" hidden></p>
           <button type="submit" class="asset-buy-submit">Pay</button>
         </form>
 

@@ -27,6 +27,19 @@
               { q: "Can I use the site without registering?", a: "Yes. All educational content here is open to everyone; an account is only needed with a provider you choose to invest through." },
             ],
           },
+          brokers: {
+            title: "Brokers",
+            items: [
+              { q: "How can I plan for retirement and long-term wealth building?", a: "Start with your goals and time horizon, then consider risk tolerance, diversification, costs, and how much you can contribute consistently. A long-term approach does not remove the risk of loss or guarantee returns." },
+              { q: "What is a brokerage account?", a: "A brokerage account lets you buy and sell investments through a brokerage firm. Available investments, fees, account features, and investor protections vary by provider, so review the terms and verify the firm with the relevant regulator." },
+              { q: "What is the difference between individual, joint, and custodial brokerage accounts?", a: "An individual account generally has one owner; a joint account has two or more co-owners; and a custodial account is managed by an adult for a minor under applicable rules. Ownership, access, and tax treatment depend on the account agreement and local law." },
+              { q: "What is a Traditional IRA?", a: "A Traditional IRA is an individual retirement account. Contributions may be tax-deductible depending on eligibility and circumstances, and withdrawals are generally taxable as ordinary income. Rules and limits can change, so confirm current details with an authoritative source or tax professional." },
+              { q: "What is a Roth IRA?", a: "Roth IRA contributions are generally made with after-tax dollars and are not deductible. Qualified withdrawals may be tax-free when applicable requirements are met. Eligibility and contribution limits apply; verify current rules for your situation." },
+              { q: "What is a SEP IRA?", a: "A SEP IRA is a retirement plan often used by self-employed people and small businesses, funded through employer contributions. Eligibility, contribution limits, and tax rules depend on current regulations and individual circumstances." },
+              { q: "What do automated investing and rebalancing mean?", a: "Some brokerages offer recurring contributions, automatic investing, or tools that bring a portfolio back toward chosen allocations. Availability and costs vary, and automation cannot prevent losses or ensure a suitable portfolio." },
+              { q: "How should I compare brokerage firms?", a: "Check regulatory registration, account types, investment choices, fees, service terms, security practices, and how you can access or transfer your assets. Be cautious of pressure, guaranteed-return claims, or unclear charges." },
+            ],
+          },
           "treasury-bills": {
             title: "Treasury Bills",
             items: [
@@ -105,6 +118,7 @@
           general: "about platform who runs this",
           security: "scam scams fraud password otp phishing safe safety protect",
           account: "register registration sign up signup login kyc verify verification",
+          brokers: "broker brokerage brokers individual joint custodial retirement ira traditional roth sep retirement planning long-term long term investing automated rebalancing portfolio account diversification",
           "treasury-bills": "tbill t-bill treasury bill bills government",
           "stocks-etfs": "shares share stock stocks equity equities exchange traded fund etf etfs",
           "fixed-term-notes": "fixed deposit term deposit note notes lock locked",

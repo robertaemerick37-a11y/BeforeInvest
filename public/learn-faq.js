@@ -12,7 +12,6 @@
           security: {
             title: "Security",
             items: [
-              { q: "How do I know if an investment is a scam?", a: "Be wary of guaranteed high returns, pressure to act immediately, and requests to pay in gift cards or crypto to \u201cunlock\u201d your funds." },
               { q: "Should I ever share my one-time password (OTP) with anyone?", a: "No. Legitimate platforms never ask for your OTP or password over phone, email, or chat." },
               { q: "How can I protect my account?", a: "Use a unique password for each site, turn on two-factor authentication where it's offered, and avoid reusing passwords." },
               { q: "What should I do if I suspect fraud?", a: "Stop the transaction if you still can, change your passwords immediately, and report it to your bank or the relevant regulator." },

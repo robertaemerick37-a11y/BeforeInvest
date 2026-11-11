@@ -1258,63 +1258,6 @@ body {
   font-size: 11px;
 }
 
-.ov-allocation-entry {
-  margin-top: 22px;
-  padding-top: 16px;
-  border-top: 1px solid #eee;
-}
-
-.ov-allocation-entry summary {
-  width: fit-content;
-  color: #222;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.ov-allocation-entry form {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.ov-allocation-entry label {
-  display: grid;
-  gap: 6px;
-  min-width: 0;
-  color: #555;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.ov-allocation-entry select,
-.ov-allocation-entry input {
-  width: 100%;
-  min-width: 0;
-  min-height: 40px;
-  padding: 8px 10px;
-  border: 1px solid #d9dcdf;
-  border-radius: 0;
-  background: #fff;
-  color: #111;
-  font: inherit;
-}
-
-.ov-allocation-entry button {
-  min-height: 40px;
-  padding: 8px 12px;
-  border: 0;
-  border-radius: 0;
-  background: #111;
-  color: #fff;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
 .ov-allocation-note,
 .ov-allocation-status {
   margin: 12px 0 0;
@@ -3038,7 +2981,4 @@ body {
     align-self: center;
   }
 
-  .ov-allocation-entry form {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }

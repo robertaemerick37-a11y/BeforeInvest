@@ -412,9 +412,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       const response = await fetch("/api/profile/me/account", { cache: "no-store" });
       if (!response.ok) throw new Error("Could not load account summary.");
       const data = await response.json();
-      if (data) updateOverviewSummary(data);
-    } catch {
-      // Leave the current fallback values in place.
+      if (data) {
+        updateOverviewSummary(data);
+        renderAllocationSummary(data);
+      }
+    } catch (error) {
+      const status = document.querySelector("[data-allocation-status]");
+      if (status) status.textContent = "Could not load account activity. Please refresh to try again.";
+      console.error("Could not load account activity.", error);
     }
   }
 
@@ -486,122 +491,54 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  function initializeAllocationTracker() {
-    const form = document.querySelector("[data-allocation-form]");
+  function renderAllocationSummary(summary) {
     const chart = document.querySelector("[data-allocation-chart]");
     const status = document.querySelector("[data-allocation-status]");
-    if (!form || !chart || !status) return;
+    if (!chart || !status) return;
 
-    const categories = ["savings", "withdrawals", "deposits"];
-    const storageKey = `profile-allocation-v1:${String(user.email || "unknown").toLowerCase()}`;
-    const emptyAllocation = () => ({ savings: 0, withdrawals: 0, deposits: 0 });
-
-    function setStatus(message) {
-      status.textContent = message;
+    const balance = Number(summary.balance);
+    const deposits = Number(summary.deposited);
+    if (!Number.isFinite(balance) || balance < 0 || !Number.isFinite(deposits) || deposits < 0) {
+      status.textContent = "Account activity data is unavailable.";
+      console.error("Account activity response contained invalid balance or deposit amounts.");
+      return;
     }
 
-    function loadAllocation() {
-      let saved;
-      try {
-        saved = localStorage.getItem(storageKey);
-        if (saved === null) return emptyAllocation();
-        saved = JSON.parse(saved);
-      } catch (error) {
-        console.error("Could not load the personal allocation tracker.", error);
-        setStatus("The tracker could not be loaded from this browser.");
-        return null;
+    const values = { savings: balance, deposits };
+    const trackedTotal = balance + deposits;
+    const colors = { savings: "#4b8065", deposits: "#5876b7" };
+    let offset = 0;
+    const stops = [];
+
+    Object.entries(values).forEach(([key, amount]) => {
+      const percent = trackedTotal > 0 ? (amount / trackedTotal) * 100 : 0;
+      const value = document.querySelector(`[data-allocation-value="${key}"]`);
+      const percentage = document.querySelector(`[data-allocation-percent="${key}"]`);
+      if (value) value.textContent = formatCurrency(amount);
+      if (percentage) percentage.textContent = `${Math.round(percent)}%`;
+      if (percent > 0) {
+        stops.push(`${colors[key]} ${offset}% ${offset + percent}%`);
+        offset += percent;
       }
-
-      const allocation = emptyAllocation();
-      if (!saved || typeof saved !== "object" || categories.some((key) =>
-        !Number.isFinite(saved[key]) || saved[key] < 0
-      )) {
-        setStatus("Saved tracker data is invalid. It has not been changed.");
-        return null;
-      }
-      categories.forEach((key) => { allocation[key] = saved[key]; });
-      return allocation;
-    }
-
-    function renderAllocation(allocation) {
-      const total = categories.reduce((sum, key) => sum + allocation[key], 0);
-      const colors = {
-        savings: "#4b8065",
-        withdrawals: "#c27a44",
-        deposits: "#5876b7",
-      };
-      let offset = 0;
-      const stops = [];
-
-      categories.forEach((key) => {
-        const amount = allocation[key];
-        const percent = total > 0 ? (amount / total) * 100 : 0;
-        const value = document.querySelector(`[data-allocation-value="${key}"]`);
-        const percentage = document.querySelector(`[data-allocation-percent="${key}"]`);
-        if (value) value.textContent = formatCurrency(amount);
-        if (percentage) percentage.textContent = `${Math.round(percent)}%`;
-        if (percent > 0) {
-          stops.push(`${colors[key]} ${offset}% ${offset + percent}%`);
-          offset += percent;
-        }
-      });
-
-      chart.style.background = total > 0
-        ? `conic-gradient(${stops.join(", ")})`
-        : "conic-gradient(#e7e8e9 0% 100%)";
-      chart.setAttribute("aria-label", `Portfolio allocation. Savings ${formatCurrency(allocation.savings)}, withdrawals ${formatCurrency(allocation.withdrawals)}, deposits ${formatCurrency(allocation.deposits)}.`);
-      const totalElement = document.querySelector("[data-allocation-total]");
-      if (totalElement) totalElement.textContent = formatCurrency(total);
-    }
-
-    let allocation = loadAllocation();
-    if (allocation) renderAllocation(allocation);
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (!allocation) {
-        setStatus("The tracker is unavailable, so this activity was not saved.");
-        return;
-      }
-
-      const formData = new FormData(form);
-      const type = String(formData.get("type") || "");
-      const amount = Math.round(Number(formData.get("amount")) * 100) / 100;
-      if (!["savings", "deposit", "withdrawal", "income"].includes(type) ||
-          !Number.isFinite(amount) || amount <= 0 || amount > 999999999.99) {
-        setStatus("Enter a valid activity type and amount.");
-        return;
-      }
-
-      const category = type === "deposit"
-        ? "deposits"
-        : type === "withdrawal" ? "withdrawals" : "savings";
-      const nextAllocation = { ...allocation, [category]: allocation[category] + amount };
-      if (!Number.isFinite(nextAllocation[category])) {
-        setStatus("That amount exceeds the tracker limit.");
-        return;
-      }
-
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(nextAllocation));
-      } catch (error) {
-        console.error("Could not save the personal allocation tracker.", error);
-        setStatus("Could not save this activity in your browser. Please try again.");
-        return;
-      }
-
-      allocation = nextAllocation;
-      renderAllocation(allocation);
-      form.reset();
-      setStatus(type === "income"
-        ? "Income or interest added to savings."
-        : `${type.charAt(0).toUpperCase()}${type.slice(1)} added to your tracker.`);
     });
+
+    chart.style.background = trackedTotal > 0
+      ? `conic-gradient(${stops.join(", ")})`
+      : "conic-gradient(#e7e8e9 0% 100%)";
+    chart.setAttribute("aria-label", `Account figures. Current wallet balance ${formatCurrency(balance)}, confirmed deposits ${formatCurrency(deposits)}. Withdrawals are not tracked.`);
+    const totalElement = document.querySelector("[data-allocation-total]");
+    if (totalElement) totalElement.textContent = formatCurrency(balance);
+    status.textContent = "Updates automatically from your account data.";
   }
 
-  initializeAllocationTracker();
   loadOverviewSummary();
   loadRecentActivity();
+  window.setInterval(() => {
+    if (!document.hidden) loadOverviewSummary();
+  }, 60000);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) loadOverviewSummary();
+  });
 
   // ---- Sidebar expand/collapse toggle ----
   const sideNav = document.querySelector("[data-side-nav]");

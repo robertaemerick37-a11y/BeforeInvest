@@ -280,15 +280,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     viewSections.forEach((section) => {
       section.classList.toggle("is-hidden", section.dataset.view !== view);
     });
-    const activeNavView = {
-      crypto: "investments",
-      metals: "investments",
-      stocks: "investments",
-      history: "documents",
-    }[view] || view;
     viewLinks.forEach((link) => {
-      const isSidebarLink = link.classList.contains("side-nav-icon");
-      const isMatch = link.dataset.viewToggle === (isSidebarLink ? activeNavView : view);
+      const isMatch = link.dataset.viewToggle === view;
       link.classList.toggle("is-active", isMatch);
       if (isMatch) {
         link.setAttribute("aria-current", "page");

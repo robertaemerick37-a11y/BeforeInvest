@@ -492,24 +492,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   loadRecentActivity();
 
   // ---- Sidebar expand/collapse toggle ----
-  // On desktop this pins the rail open wider; on narrow screens (see
-  // profile.css) the same "is-expanded" class instead slides the sidebar
-  // in as an off-canvas drawer over a backdrop, so the two behaviors share
-  // one piece of state.
   const sideNav = document.querySelector("[data-side-nav]");
   const navToggle = document.querySelector("[data-nav-toggle]");
   const navBackdrop = document.querySelector("[data-nav-backdrop]");
   const isMobileNav = () => window.matchMedia("(max-width: 860px)").matches;
 
   function setNavExpanded(expanded) {
-    sideNav.classList.toggle("is-expanded", expanded);
+    const mobile = isMobileNav();
+    sideNav.classList.toggle("is-expanded", mobile && expanded);
+    sideNav.classList.toggle("is-collapsed", !mobile && !expanded);
     navToggle?.setAttribute("aria-expanded", String(expanded));
-    navBackdrop?.classList.toggle("is-visible", expanded && isMobileNav());
-    document.body.classList.toggle("nav-open", expanded && isMobileNav());
+    navToggle?.setAttribute(
+      "aria-label",
+      expanded ? "Collapse dashboard navigation" : "Expand dashboard navigation"
+    );
+    navBackdrop?.classList.toggle("is-visible", expanded && mobile);
+    document.body.classList.toggle("nav-open", expanded && mobile);
   }
 
+  setNavExpanded(!isMobileNav());
+
   navToggle?.addEventListener("click", () => {
-    setNavExpanded(!sideNav.classList.contains("is-expanded"));
+    const expanded = isMobileNav()
+      ? sideNav.classList.contains("is-expanded")
+      : !sideNav.classList.contains("is-collapsed");
+    setNavExpanded(!expanded);
   });
 
   navBackdrop?.addEventListener("click", () => setNavExpanded(false));
@@ -526,6 +533,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (isMobileNav()) setNavExpanded(false);
     });
   });
+
+  const navBreakpoint = window.matchMedia("(max-width: 860px)");
+  navBreakpoint.addEventListener("change", (event) => setNavExpanded(!event.matches));
 
   // ---- Log out: clear the mock session and return to login ----
   document.querySelectorAll("[data-logout]").forEach((btn) => {

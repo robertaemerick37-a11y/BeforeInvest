@@ -268,9 +268,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   })();
 
-  // ---- Overview / Settings view toggle ----
-  // "Settings" isn't a separate page — it just swaps which section of this
-  // same profile screen is visible.
+  // ---- Dashboard section switching ----
   const viewLinks = document.querySelectorAll("[data-view-toggle]");
   const viewSections = document.querySelectorAll("[data-view]:not(a)");
 
@@ -282,8 +280,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     viewSections.forEach((section) => {
       section.classList.toggle("is-hidden", section.dataset.view !== view);
     });
+    const activeNavView = {
+      crypto: "investments",
+      metals: "investments",
+      stocks: "investments",
+      history: "documents",
+    }[view] || view;
     viewLinks.forEach((link) => {
-      const isMatch = link.dataset.viewToggle === view;
+      const isSidebarLink = link.classList.contains("side-nav-icon");
+      const isMatch = link.dataset.viewToggle === (isSidebarLink ? activeNavView : view);
       link.classList.toggle("is-active", isMatch);
       if (isMatch) {
         link.setAttribute("aria-current", "page");

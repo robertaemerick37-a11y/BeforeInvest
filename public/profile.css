@@ -22,8 +22,8 @@ body {
   display: flex;
   align-items: center;
   padding: 0 56px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(8, 15, 23, 0.82);
+  border-bottom: 1px solid #e5e5e5;
+  background: #fff;
 }
 
 .profile-avatar-btn {
@@ -305,8 +305,8 @@ body {
 .settings-summary-heading span {
   padding: 4px 7px;
   border-radius: 999px;
-  background: #dcefe5;
-  color: #286343;
+  background: #e8e8e8;
+  color: #333;
   font-size: 10px;
   font-weight: 700;
 }
@@ -470,8 +470,8 @@ body {
 
 .settings-field input:focus,
 .settings-field select:focus {
-  outline: 2px solid rgba(31, 89, 64, 0.18);
-  border-color: #557a67;
+  outline: 2px solid rgba(17, 17, 17, 0.12);
+  border-color: #111;
   background: #fff;
 }
 
@@ -492,7 +492,7 @@ body {
 
 .settings-form-footer p {
   margin: 0;
-  color: #286343;
+  color: #333;
   font-size: 12.5px;
 }
 
@@ -603,15 +603,15 @@ body {
   align-items: center;
   border-radius: 999px;
   padding: 5px 9px;
-  background: #fff2d8;
-  color: #7a5200;
+  background: #eee;
+  color: #333;
   font-size: 10px;
   font-weight: 700;
 }
 
 .settings-history-status-badge--completed {
-  background: #e1f5e9;
-  color: #176b3a;
+  background: #e5e5e5;
+  color: #111;
 }
 
 /* ==== App body: sidebar + content ==== */
@@ -621,9 +621,9 @@ body {
   min-height: 820px;
   border-radius: 26px;
   overflow: hidden;
-  border: 1px solid rgba(17, 24, 39, 0.08);
-  background: #f4f3f1;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e5e5e5;
+  background: #f5f5f5;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06);
 }
 
 /* Backdrop behind the off-canvas mobile nav drawer; only shown below the
@@ -662,9 +662,9 @@ body {
   flex: none;
   width: 220px;
   padding: 18px 14px 18px;
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
-  background: linear-gradient(180deg, #101d2c 0%, #0d1727 100%);
-  color: #eef3fb;
+  border-right: 1px solid #252525;
+  background: #111;
+  color: #fff;
   transition: width 0.2s ease;
 }
 
@@ -694,8 +694,8 @@ body {
   gap: 12px;
   margin: 6px 8px 18px;
   padding: 4px 8px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  color: #f8fbff;
+  border-bottom: 1px solid #333;
+  color: #fff;
 }
 
 .side-nav-brand-mark {
@@ -704,7 +704,8 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #4bc0ff 0%, #4965ff 100%);
+  background: #fff;
+  color: #111;
   font-size: 16px;
   font-weight: 800;
 }
@@ -722,7 +723,7 @@ body {
 }
 
 .side-nav-brand-copy small {
-  color: rgba(220, 232, 255, 0.7);
+  color: #aaa;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -741,7 +742,7 @@ body {
 .side-nav-divider {
   margin: 10px 4px 14px;
   border: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid #333;
 }
 
 .side-nav-icon,
@@ -758,7 +759,7 @@ body {
   height: 42px;
   padding: 0 12px 0 6px;
   border-radius: 12px;
-  color: rgba(228, 235, 248, 0.8);
+  color: #ccc;
   overflow: hidden;
   white-space: nowrap;
   transition: width 0.2s ease, padding 0.2s ease, background 0.15s ease, color 0.15s ease;
@@ -788,13 +789,13 @@ body {
 
 .side-nav-icon:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.06);
+  background: #292929;
 }
 
 .side-nav-icon.is-active {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  color: #111;
+  background: #fff;
+  box-shadow: none;
 }
 
 /* ==== Overview: top row (card + quick links) ==== */
@@ -814,18 +815,18 @@ body {
   justify-content: space-between;
   min-height: 230px;
   padding: 24px 26px 22px;
-  border: 1px solid #e3e6e9;
+  border: 1px solid #111;
   border-radius: 28px;
-  background: linear-gradient(145deg, #fbfcfd 0%, #edf3f7 100%);
-  color: #111;
-  box-shadow: 0 18px 34px rgba(11, 17, 31, 0.04);
+  background: #111;
+  color: #fff;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.12);
 }
 
 .ov-balance-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top left, rgba(92, 169, 255, 0.12), transparent 42%);
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.1), transparent 42%);
   pointer-events: none;
 }
 
@@ -857,7 +858,7 @@ body {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
   transition: transform 0.15s ease, background 0.15s ease;
 }
@@ -917,7 +918,7 @@ body {
   align-items: center;
   gap: 10px;
   margin: 0;
-  color: #687078;
+  color: #ccc;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -944,7 +945,7 @@ body {
 }
 
 .ov-balance-currency {
-  color: #55606a;
+  color: #ccc;
   font-size: 13.5px;
   font-weight: 700;
 }
@@ -972,9 +973,9 @@ body {
   min-height: 118px;
   padding: 20px 22px;
   border-radius: 20px;
-  background: #f4f8fb;
-  border: 1px solid rgba(17, 17, 17, 0.04);
-  box-shadow: 0 12px 24px rgba(17, 17, 17, 0.05);
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
 }
 
 .ov-summary-card-label {
@@ -1033,6 +1034,7 @@ body {
   flex: none;
   border-radius: 12px;
   color: #fff;
+  background: #111;
 }
 
 .ov-quicklink-icon svg {
@@ -1040,9 +1042,9 @@ body {
   height: 19px;
 }
 
-.ov-quicklink-icon--fund { background: #3b6df0; }
-.ov-quicklink-icon--invest { background: #17a367; }
-.ov-quicklink-icon--save { background: #1fb2d6; }
+.ov-quicklink-icon--fund,
+.ov-quicklink-icon--invest,
+.ov-quicklink-icon--save { background: #111; }
 
 /* ==== Overview: shared section head ==== */
 .ov-section {
@@ -1107,13 +1109,13 @@ body {
 }
 
 .ov-activity-pill--credit {
-  background: rgba(31, 178, 109, 0.12);
-  color: #0f7d4d;
+  background: #eee;
+  color: #111;
 }
 
 .ov-activity-pill--debit {
-  background: rgba(220, 78, 78, 0.12);
-  color: #b42318;
+  background: #eee;
+  color: #444;
 }
 
 .ov-activity-value {
@@ -1214,9 +1216,9 @@ body {
   height: 21px;
 }
 
-.ov-recommend-logo--crypto { background: #f7931a; }
-.ov-recommend-logo--metals { background: #8a8f98; }
-.ov-recommend-logo--stocks { background: #17a367; }
+.ov-recommend-logo--crypto,
+.ov-recommend-logo--metals,
+.ov-recommend-logo--stocks { background: #111; }
 
 .ov-recommend-body {
   display: flex;
@@ -1319,6 +1321,7 @@ body {
   height: 34px;
   flex: none;
   border-radius: 10px;
+  background: #111 !important;
   color: #fff;
   font-size: 12.5px;
   font-weight: 800;
@@ -1364,8 +1367,8 @@ body {
   font-weight: 800;
 }
 
-.ov-mover-price small.is-up { color: #17a367; }
-.ov-mover-price small.is-down { color: #e0453c; }
+.ov-mover-price small.is-up,
+.ov-mover-price small.is-down { color: #333; }
 
 /* ==== Crypto cards (continuous marquee: cards drift in from the right,
    out to the left, on an endless loop) ==== */
@@ -1418,6 +1421,7 @@ body {
   height: 32px;
   flex: none;
   border-radius: 10px;
+  background: #111 !important;
   color: #fff;
   font-size: 12px;
   font-weight: 800;
@@ -1454,13 +1458,13 @@ body {
 }
 
 .ov-crypto-change.is-up {
-  color: #17a367;
-  background: rgba(23, 163, 103, 0.13);
+  color: #111;
+  background: #e8e8e8;
 }
 
 .ov-crypto-change.is-down {
-  color: #e0453c;
-  background: rgba(224, 69, 60, 0.12);
+  color: #555;
+  background: #e8e8e8;
 }
 
 .ov-crypto-price {
@@ -1623,7 +1627,7 @@ body {
 
 .asset-buy-error {
   margin: 0;
-  color: #b42318;
+  color: #333;
   font-size: 13px;
 }
 
@@ -1896,7 +1900,7 @@ body {
     bottom: 0;
     z-index: 50;
     padding: 24px 14px 20px;
-    background: #fff;
+    background: #111;
     box-shadow: 8px 0 24px rgba(0, 0, 0, 0.14);
     transform: translateX(-100%);
     transition: width 0.2s ease, transform 0.25s ease;
@@ -1924,7 +1928,7 @@ body {
   }
 
   .ov-top-row {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 14px;
     margin-top: 28px;
   }

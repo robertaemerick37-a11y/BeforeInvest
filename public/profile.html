@@ -16,7 +16,7 @@
           <a href="index.html" class="brand" aria-label="Marsvest home">
             <img class="brand-mark" src="logo.svg" alt="" />
           </a>
-          <button type="button" class="side-nav-toggle" data-nav-toggle aria-label="Collapse dashboard navigation" aria-expanded="true" aria-controls="dashboardNav">
+          <button type="button" class="side-nav-toggle" data-nav-toggle aria-label="Expand dashboard navigation" aria-expanded="false" aria-controls="dashboardNav">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg>
           </button>
           <button type="button" class="profile-avatar-btn" data-view-toggle="settings" aria-label="Open account settings">
@@ -216,6 +216,63 @@
               <div class="ov-crypto-track" data-crypto-track></div>
             </div>
           </section>
+
+          <div class="ov-allocation-layout">
+            <section class="ov-allocation-card" aria-labelledby="allocationHeading">
+              <div class="ov-section-head">
+                <h3 id="allocationHeading">Portfolio allocation</h3>
+                <p>A personal view of the activity you record.</p>
+              </div>
+
+              <div class="ov-allocation-content">
+                <div class="ov-allocation-chart" role="img" aria-label="Portfolio allocation chart" data-allocation-chart>
+                  <div class="ov-allocation-chart-center">
+                    <small>Tracked total</small>
+                    <strong data-allocation-total>$0.00</strong>
+                  </div>
+                </div>
+                <ul class="ov-allocation-legend" aria-label="Allocation breakdown">
+                  <li>
+                    <span class="ov-allocation-label"><span class="ov-allocation-swatch ov-allocation-swatch--savings"></span>Savings</span>
+                    <span class="ov-allocation-amount" data-allocation-value="savings">$0.00</span>
+                    <small data-allocation-percent="savings">0%</small>
+                  </li>
+                  <li>
+                    <span class="ov-allocation-label"><span class="ov-allocation-swatch ov-allocation-swatch--withdrawals"></span>Withdrawals</span>
+                    <span class="ov-allocation-amount" data-allocation-value="withdrawals">$0.00</span>
+                    <small data-allocation-percent="withdrawals">0%</small>
+                  </li>
+                  <li>
+                    <span class="ov-allocation-label"><span class="ov-allocation-swatch ov-allocation-swatch--deposits"></span>Deposits</span>
+                    <span class="ov-allocation-amount" data-allocation-value="deposits">$0.00</span>
+                    <small data-allocation-percent="deposits">0%</small>
+                  </li>
+                </ul>
+              </div>
+
+              <details class="ov-allocation-entry">
+                <summary>Record activity</summary>
+                <form data-allocation-form>
+                  <label>
+                    <span>Activity type</span>
+                    <select name="type" required>
+                      <option value="savings">Savings</option>
+                      <option value="deposit">Deposit</option>
+                      <option value="withdrawal">Withdrawal</option>
+                      <option value="income">Income or interest</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span>Amount (USD)</span>
+                    <input name="amount" type="number" min="0.01" max="999999999.99" step="0.01" inputmode="decimal" placeholder="0.00" required />
+                  </label>
+                  <button type="submit">Add to tracker</button>
+                </form>
+                <p class="ov-allocation-note">Income and interest are counted as savings. This personal tracker does not move funds or change your account balance.</p>
+                <p class="ov-allocation-status" data-allocation-status role="status" aria-live="polite"></p>
+              </details>
+            </section>
+          </div>
 
           <section class="ov-section ov-recent-activity" aria-labelledby="recentActivityHeading">
             <div class="ov-section-head">

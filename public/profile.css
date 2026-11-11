@@ -1147,6 +1147,186 @@ body {
   font-size: 13.5px;
 }
 
+.ov-allocation-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 44px;
+}
+
+.ov-allocation-card {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #e7e8e9;
+  background: #fff;
+  color: #111;
+}
+
+.ov-allocation-content {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-top: 22px;
+}
+
+.ov-allocation-chart {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 176px;
+  height: 176px;
+  flex: none;
+  border-radius: 50%;
+}
+
+.ov-allocation-chart::before {
+  position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  background: #fff;
+  content: "";
+}
+
+.ov-allocation-chart-center {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  max-width: 116px;
+  text-align: center;
+}
+
+.ov-allocation-chart-center small {
+  color: #70757a;
+  font-size: 11px;
+}
+
+.ov-allocation-chart-center strong {
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.ov-allocation-legend {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ov-allocation-legend li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 5px 12px;
+  font-size: 13px;
+}
+
+.ov-allocation-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: #555;
+}
+
+.ov-allocation-swatch {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border-radius: 50%;
+}
+
+.ov-allocation-swatch--savings { background: #4b8065; }
+.ov-allocation-swatch--withdrawals { background: #c27a44; }
+.ov-allocation-swatch--deposits { background: #5876b7; }
+
+.ov-allocation-amount {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ov-allocation-legend li small {
+  grid-column: 2;
+  justify-self: end;
+  color: #777;
+  font-size: 11px;
+}
+
+.ov-allocation-entry {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.ov-allocation-entry summary {
+  width: fit-content;
+  color: #222;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ov-allocation-entry form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.ov-allocation-entry label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  color: #555;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ov-allocation-entry select,
+.ov-allocation-entry input {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 1px solid #d9dcdf;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font: inherit;
+}
+
+.ov-allocation-entry button {
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 0;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ov-allocation-note,
+.ov-allocation-status {
+  margin: 12px 0 0;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ov-allocation-status:empty {
+  display: none;
+}
+
 /* ==== Stocks: third-party trade partner disclosure + CTA ==== */
 .ov-stocks-partner {
   display: flex;
@@ -2832,5 +3012,33 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .save-overlay {
     transition: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .ov-allocation-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .ov-allocation-card {
+    padding: 18px;
+  }
+
+  .ov-allocation-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .ov-allocation-chart {
+    width: 160px;
+    height: 160px;
+    align-self: center;
+  }
+
+  .ov-allocation-entry form {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

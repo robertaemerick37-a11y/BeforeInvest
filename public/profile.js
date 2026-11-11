@@ -486,6 +486,120 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
+  function initializeAllocationTracker() {
+    const form = document.querySelector("[data-allocation-form]");
+    const chart = document.querySelector("[data-allocation-chart]");
+    const status = document.querySelector("[data-allocation-status]");
+    if (!form || !chart || !status) return;
+
+    const categories = ["savings", "withdrawals", "deposits"];
+    const storageKey = `profile-allocation-v1:${String(user.email || "unknown").toLowerCase()}`;
+    const emptyAllocation = () => ({ savings: 0, withdrawals: 0, deposits: 0 });
+
+    function setStatus(message) {
+      status.textContent = message;
+    }
+
+    function loadAllocation() {
+      let saved;
+      try {
+        saved = localStorage.getItem(storageKey);
+        if (saved === null) return emptyAllocation();
+        saved = JSON.parse(saved);
+      } catch (error) {
+        console.error("Could not load the personal allocation tracker.", error);
+        setStatus("The tracker could not be loaded from this browser.");
+        return null;
+      }
+
+      const allocation = emptyAllocation();
+      if (!saved || typeof saved !== "object" || categories.some((key) =>
+        !Number.isFinite(saved[key]) || saved[key] < 0
+      )) {
+        setStatus("Saved tracker data is invalid. It has not been changed.");
+        return null;
+      }
+      categories.forEach((key) => { allocation[key] = saved[key]; });
+      return allocation;
+    }
+
+    function renderAllocation(allocation) {
+      const total = categories.reduce((sum, key) => sum + allocation[key], 0);
+      const colors = {
+        savings: "#4b8065",
+        withdrawals: "#c27a44",
+        deposits: "#5876b7",
+      };
+      let offset = 0;
+      const stops = [];
+
+      categories.forEach((key) => {
+        const amount = allocation[key];
+        const percent = total > 0 ? (amount / total) * 100 : 0;
+        const value = document.querySelector(`[data-allocation-value="${key}"]`);
+        const percentage = document.querySelector(`[data-allocation-percent="${key}"]`);
+        if (value) value.textContent = formatCurrency(amount);
+        if (percentage) percentage.textContent = `${Math.round(percent)}%`;
+        if (percent > 0) {
+          stops.push(`${colors[key]} ${offset}% ${offset + percent}%`);
+          offset += percent;
+        }
+      });
+
+      chart.style.background = total > 0
+        ? `conic-gradient(${stops.join(", ")})`
+        : "conic-gradient(#e7e8e9 0% 100%)";
+      chart.setAttribute("aria-label", `Portfolio allocation. Savings ${formatCurrency(allocation.savings)}, withdrawals ${formatCurrency(allocation.withdrawals)}, deposits ${formatCurrency(allocation.deposits)}.`);
+      const totalElement = document.querySelector("[data-allocation-total]");
+      if (totalElement) totalElement.textContent = formatCurrency(total);
+    }
+
+    let allocation = loadAllocation();
+    if (allocation) renderAllocation(allocation);
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!allocation) {
+        setStatus("The tracker is unavailable, so this activity was not saved.");
+        return;
+      }
+
+      const formData = new FormData(form);
+      const type = String(formData.get("type") || "");
+      const amount = Math.round(Number(formData.get("amount")) * 100) / 100;
+      if (!["savings", "deposit", "withdrawal", "income"].includes(type) ||
+          !Number.isFinite(amount) || amount <= 0 || amount > 999999999.99) {
+        setStatus("Enter a valid activity type and amount.");
+        return;
+      }
+
+      const category = type === "deposit"
+        ? "deposits"
+        : type === "withdrawal" ? "withdrawals" : "savings";
+      const nextAllocation = { ...allocation, [category]: allocation[category] + amount };
+      if (!Number.isFinite(nextAllocation[category])) {
+        setStatus("That amount exceeds the tracker limit.");
+        return;
+      }
+
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(nextAllocation));
+      } catch (error) {
+        console.error("Could not save the personal allocation tracker.", error);
+        setStatus("Could not save this activity in your browser. Please try again.");
+        return;
+      }
+
+      allocation = nextAllocation;
+      renderAllocation(allocation);
+      form.reset();
+      setStatus(type === "income"
+        ? "Income or interest added to savings."
+        : `${type.charAt(0).toUpperCase()}${type.slice(1)} added to your tracker.`);
+    });
+  }
+
+  initializeAllocationTracker();
   loadOverviewSummary();
   loadRecentActivity();
 
@@ -508,7 +622,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.classList.toggle("nav-open", expanded && mobile);
   }
 
-  setNavExpanded(!isMobileNav());
+  setNavExpanded(false);
 
   navToggle?.addEventListener("click", () => {
     const expanded = isMobileNav()
@@ -533,7 +647,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   const navBreakpoint = window.matchMedia("(max-width: 860px)");
-  navBreakpoint.addEventListener("change", (event) => setNavExpanded(!event.matches));
+  navBreakpoint.addEventListener("change", () => setNavExpanded(false));
 
   // ---- Log out: clear the mock session and return to login ----
   document.querySelectorAll("[data-logout]").forEach((btn) => {

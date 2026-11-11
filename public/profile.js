@@ -494,6 +494,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   function renderAllocationSummary(summary) {
     const chart = document.querySelector("[data-allocation-chart]");
     const status = document.querySelector("[data-allocation-status]");
+    const tier = String(summary.tier || user.tier || "Standard");
+    const tierLevels = ["Standard", "Silver", "Gold"];
+    const tierIndex = tierLevels.indexOf(tier);
+    if (tierIndex === -1) {
+      console.error("Account summary returned an unsupported account tier.");
+    } else {
+      const tierPercent = Math.round((tierIndex / (tierLevels.length - 1)) * 100);
+      document.querySelectorAll("[data-dashboard-tier]").forEach((element) => {
+        element.textContent = tier;
+      });
+      document.querySelectorAll("[data-dashboard-tier-bar]").forEach((bar) => {
+        bar.setAttribute("aria-valuenow", String(tierPercent));
+        bar.setAttribute("aria-valuetext", `${tier} tier`);
+        const fill = bar.querySelector("[data-dashboard-tier-fill]");
+        if (fill) requestAnimationFrame(() => { fill.style.width = `${tierPercent}%`; });
+      });
+    }
+
     if (!chart || !status) return;
 
     const balance = Number(summary.balance);

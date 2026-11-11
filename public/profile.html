@@ -180,7 +180,7 @@
             <section class="ov-allocation-card" aria-labelledby="allocationHeading">
               <div class="ov-section-head">
                 <h3 id="allocationHeading">Portfolio allocation</h3>
-                <p>A personal view of the activity you record.</p>
+                <p>Current account balance and confirmed deposits</p>
               </div>
 
               <div class="ov-allocation-content">
@@ -211,6 +211,21 @@
 
               <p class="ov-allocation-note" data-allocation-status role="status" aria-live="polite">Loading your account activity…</p>
               <p class="ov-allocation-note">Updates automatically from your account data. Savings shows your current wallet balance; deposits show the confirmed deposited total, so the figures can overlap. Withdrawals and interest are not recorded in the account data yet.</p>
+            </section>
+
+            <section class="ov-tier-card" aria-labelledby="dashboardTierHeading">
+              <div class="ov-section-head">
+                <h3 id="dashboardTierHeading">Account tier</h3>
+                <p>Your current membership level</p>
+              </div>
+              <div class="ov-tier-current">
+                <span class="ov-tier-badge" aria-hidden="true">★</span>
+                <strong data-dashboard-tier>Standard</strong>
+              </div>
+              <div class="tier-bar" role="progressbar" aria-label="Account tier level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-dashboard-tier-bar>
+                <span class="tier-bar-fill" data-dashboard-tier-fill></span>
+              </div>
+              <p class="ov-allocation-note" data-dashboard-tier-description>Set by the team</p>
             </section>
           </div>
 

@@ -1053,9 +1053,10 @@ body {
   height: 19px;
 }
 
-.ov-quicklink-icon--fund,
-.ov-quicklink-icon--invest,
-.ov-quicklink-icon--save { background: #111; }
+.ov-quicklink-icon--fund { background: #34785b; }
+.ov-quicklink-icon--withdraw { background: #b66b2b; }
+.ov-quicklink-icon--invest { background: #4a68a8; }
+.ov-quicklink-icon--save { background: #4a68a8; }
 
 /* ==== Overview: shared section head ==== */
 .ov-section {
@@ -1227,9 +1228,9 @@ body {
   height: 21px;
 }
 
-.ov-recommend-logo--crypto,
-.ov-recommend-logo--metals,
-.ov-recommend-logo--stocks { background: #111; }
+.ov-recommend-logo--crypto { background: #c87532; }
+.ov-recommend-logo--metals { background: #9c7a32; }
+.ov-recommend-logo--stocks { background: #34785b; }
 
 .ov-recommend-body {
   display: flex;
@@ -1332,7 +1333,7 @@ body {
   height: 34px;
   flex: none;
   border-radius: 10px;
-  background: #111 !important;
+  background: #555;
   color: #fff;
   font-size: 12.5px;
   font-weight: 800;
@@ -1432,7 +1433,7 @@ body {
   height: 32px;
   flex: none;
   border-radius: 10px;
-  background: #111 !important;
+  background: #555;
   color: #fff;
   font-size: 12px;
   font-weight: 800;
